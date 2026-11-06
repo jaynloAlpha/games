@@ -59,7 +59,10 @@ pub async fn file(
         canonical
     };
 
-    let cache = if relative.ends_with(".html") || relative.ends_with(".htm") {
+    let cache = if [".html", ".htm", ".js", ".mjs", ".css"]
+        .iter()
+        .any(|extension| relative.ends_with(extension))
+    {
         "no-cache"
     } else {
         "public, max-age=3600"

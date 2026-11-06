@@ -96,6 +96,8 @@ mod tests {
         )
         .unwrap();
         std::fs::write(games.join("demo/index.html"), "<html>demo</html>").unwrap();
+        std::fs::write(games.join("demo/game.js"), "// game logic").unwrap();
+        std::fs::write(games.join("demo/game.css"), "body { margin: 0 }").unwrap();
         std::fs::write(
             root.join("site.json"),
             r#"{"title":"测试乐园","tagline":"标语","description":"简介"}"#,
@@ -135,6 +137,23 @@ mod tests {
 
         let (status, _) = get(&app, "/api/games/missing").await;
         assert_eq!(status, StatusCode::NOT_FOUND);
+    }
+
+    #[tokio::test]
+    async fn revalidates_game_logic_and_styles() {
+        let app = test_app().await;
+        for path in [
+            "/games/demo/game.js?v=updated",
+            "/games/demo/game.css?v=updated",
+        ] {
+            let response = app
+                .clone()
+                .oneshot(Request::builder().uri(path).body(Body::empty()).unwrap())
+                .await
+                .unwrap();
+            assert_eq!(response.status(), StatusCode::OK);
+            assert_eq!(response.headers()[header::CACHE_CONTROL], "no-cache");
+        }
     }
 
     #[tokio::test]
