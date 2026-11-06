@@ -122,6 +122,18 @@ body::before {
   background: radial-gradient(620px 380px at 92% 0%, rgba(184, 164, 237, 0.12), transparent 72%);
 }
 
+/* 首页：内容不足一屏时把页脚压到视口底部 */
+body.home {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+body.home > main {
+  flex: 1 0 auto;
+}
+
 img,
 svg {
   max-width: 100%;
@@ -327,6 +339,7 @@ code {
 /* categories -------------------------------------------------------------- */
 .browse {
   padding-top: clamp(16px, 2.2vw, 24px);
+  padding-bottom: clamp(24px, 4vw, 44px);
 }
 
 .chips {
@@ -400,7 +413,7 @@ code {
   display: grid;
   place-items: center;
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   border-radius: 16px;
   background: var(--accent-soft);
 }
@@ -442,7 +455,7 @@ code {
 .cover-fallback .cover-icon {
   position: relative;
   z-index: 1;
-  font-size: 56px;
+  font-size: 44px;
   line-height: 1;
   transform: rotate(-4deg);
   filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.14));
@@ -600,8 +613,9 @@ code {
 
 /* footer ------------------------------------------------------------------ */
 .site-footer {
-  margin-top: 56px;
+  margin-top: auto;
   border-top: 1px solid rgba(229, 229, 229, 0.8);
+  background: var(--surface-soft);
 }
 
 .footer-inner {
