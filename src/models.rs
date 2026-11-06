@@ -164,7 +164,7 @@ fn default_categories() -> Vec<String> {
 impl Default for SiteSettings {
     fn default() -> Self {
         Self {
-            title: "泥泥乐园".to_string(),
+            title: "倪的乐园".to_string(),
             tagline: "小手点一点，快乐玩一天".to_string(),
             description: "给小朋友的迷你游戏乐园，打开网页就能玩，没有广告，不用注册。".to_string(),
             accent: "pink".to_string(),

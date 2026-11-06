@@ -81,7 +81,7 @@ fn env_flag(key: &str, default: bool) -> bool {
 fn print_help() {
     println!(
         "\
-泥泥乐园 Clay Play
+倪的乐园 Clay Play
 
 用法:
   clayplay [选项]

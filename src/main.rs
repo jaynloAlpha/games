@@ -114,7 +114,7 @@ async fn banner(config: &Config, store: &Store) {
 
     println!();
     println!("  ╭──────────────────────────────────────────────╮");
-    println!("  │              泥泥乐园 · Clay Play             │");
+    println!("  │              倪的乐园 · Clay Play             │");
     println!("  ╰──────────────────────────────────────────────╯");
     println!("   前台      {local}");
     println!(

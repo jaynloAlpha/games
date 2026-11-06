@@ -1,4 +1,4 @@
-# 泥泥乐园 · Clay Play
+# 倪的乐园 · Clay Play
 
 给小朋友的自托管小游戏乐园。一个 Rust 二进制，前端内嵌，游戏就是仓库里的静态文件夹。
 
@@ -100,7 +100,7 @@ cp -r games/_template games/my-game
 
 ```json
 {
-  "title": "泥泥乐园",
+  "title": "倪的乐园",
   "tagline": "小手点一点，快乐玩一天",
   "description": "给小朋友的迷你游戏乐园。",
   "accent": "pink",
