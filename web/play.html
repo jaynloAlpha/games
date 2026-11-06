@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{PAGE_TITLE}}</title>
+  <meta name="description" content="{{PAGE_DESC}}">
+  <meta name="theme-color" content="#fffaf0">
+  <meta property="og:title" content="{{PAGE_TITLE}}">
+  <meta property="og:description" content="{{PAGE_DESC}}">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/baloo2-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/app.css?v={{ASSET_VERSION}}">
+</head>
+<body class="play-page" data-slug="{{GAME_SLUG}}" data-title="{{GAME_TITLE}}" data-icon="{{GAME_ICON}}" data-accent="{{GAME_ACCENT}}">
+  <a class="skip-link" href="#stage">跳到游戏</a>
+
+  <header class="play-bar">
+    <a class="back" href="/" aria-label="回到乐园">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <div class="play-title">
+      <h1>{{GAME_TITLE}}</h1>
+      <p id="playSub">{{SITE_TITLE}} · 正在准备</p>
+    </div>
+    <div class="play-actions">
+      <button class="btn btn-ghost" id="restartBtn" type="button">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5v5h5M4.5 10a8 8 0 1 1 1.8 8.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="label">重新开始</span>
+      </button>
+      <button class="btn btn-primary" id="fullscreenBtn" type="button">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9V5a1 1 0 0 1 1-1h4M15 4h4a1 1 0 0 1 1 1v4M20 15v4a1 1 0 0 1-1 1h-4M9 20H5a1 1 0 0 1-1-1v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="label">全屏</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="play-main">
+    <div class="stage-wrap">
+      <div class="stage accent-{{GAME_ACCENT}}" id="stage">
+        <div class="stage-loading" id="loading">
+          <div class="loader" aria-hidden="true"><span></span><span></span><span></span></div>
+          <p>正在打开「{{GAME_TITLE}}」…</p>
+        </div>
+        <iframe id="frame" title="{{GAME_TITLE}}" allow="autoplay; fullscreen; gamepad; accelerometer; gyroscope" sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-popups allow-pointer-lock allow-downloads"></iframe>
+      </div>
+    </div>
+
+    <div class="play-meta">
+      <section class="panel play-info" aria-labelledby="infoTitle">
+        <h2 id="infoTitle">{{GAME_TITLE}}</h2>
+        <div class="meta-row" id="metaRow"></div>
+        <p id="infoDesc">正在加载游戏信息…</p>
+        <div class="tag-row" id="tagRow"></div>
+      </section>
+      <aside class="panel next" aria-labelledby="nextTitle">
+        <h2 id="nextTitle">再玩一个</h2>
+        <div class="next-list" id="nextList">
+          <p class="result-count">加载中…</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <noscript>
+    <p class="container result-count">这个页面需要开启 JavaScript 才能运行游戏。</p>
+  </noscript>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script src="/assets/js/common.js?v={{ASSET_VERSION}}" defer></script>
+  <script src="/assets/js/play.js?v={{ASSET_VERSION}}" defer></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+services:
+  clayplay:
+    build: .
+    image: clayplay:latest
+    restart: unless-stopped
+    ports:
+      # 只绑定本机，由宿主机的 nginx / Caddy 提供 80/443
+      - "127.0.0.1:8080:8080"
+    environment:
+      CLAY_WATCH: "0"
+      RUST_LOG: "clayplay=info,tower_http=warn"
+    # 想让改 games/、site.json 立即生效（重启容器后）时，取消下面的挂载：
+    # volumes:
+    #   - ./games:/app/games:ro
+    #   - ./site.json:/app/site.json:ro

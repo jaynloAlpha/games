@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>接星星</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #101a2c; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; }
+  canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
+  .hud { position: fixed; inset: 14px 16px auto; display: flex; justify-content: space-between; pointer-events: none; color: #fff; }
+  .chip { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); border-radius: 999px; padding: 8px 16px; font-size: 15px; backdrop-filter: blur(6px); }
+  .chip b { font-size: 20px; color: #ffd166; }
+  .over { position: fixed; inset: 0; display: grid; place-items: center; background: rgba(16,26,44,.82); backdrop-filter: blur(6px); }
+  .card { background: #fff; border-radius: 28px; padding: 34px 42px; text-align: center; }
+  .card h1 { margin: 0 0 6px; font-size: 28px; color: #14233b; }
+  .card p { margin: 0 0 16px; color: #607089; }
+  .card strong { display: block; font-size: 42px; color: #e8a41c; margin-bottom: 16px; }
+  button { border: 0; border-radius: 16px; background: #14233b; color: #fff; font-size: 16px; padding: 14px 28px; cursor: pointer; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="hud">
+  <div class="chip">星星 <b id="score">0</b></div>
+  <div class="chip">时间 <b id="time">30</b>s</div>
+</div>
+<div class="over" id="over" hidden>
+  <div class="card">
+    <h1>今晚的天空</h1>
+    <p>你接住了</p>
+    <strong id="final">0</strong>
+    <button id="again">再来一局</button>
+  </div>
+</div>
+<script>
+(() => {
+  const canvas = document.getElementById("c");
+  const ctx = canvas.getContext("2d");
+  const scoreEl = document.getElementById("score");
+  const timeEl = document.getElementById("time");
+  const overEl = document.getElementById("over");
+  const finalEl = document.getElementById("final");
+  let width = 0, height = 0, dpr = 1;
+  let items = [], stars = 0, timeLeft = 30, running = false, last = 0, spawnTimer = 0;
+  const basket = { x: 0, y: 0, w: 92, h: 26 };
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = window.innerWidth; height = window.innerHeight;
+    canvas.width = width * dpr; canvas.height = height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    basket.x = width / 2; basket.y = height - 60;
+  }
+
+  function spawn() {
+    const bomb = Math.random() < 0.22;
+    items.push({
+      x: 40 + Math.random() * (width - 80),
+      y: -20,
+      vy: 110 + Math.random() * 120 + stars * 2,
+      r: bomb ? 15 : 13,
+      rot: Math.random() * Math.PI,
+      bomb,
+    });
+  }
+
+  function drawStar(x, y, r, rot, color) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    for (let i = 0; i < 10; i++) {
+      const rad = i % 2 === 0 ? r : r * 0.45;
+      const a = (Math.PI * i) / 5 - Math.PI / 2;
+      ctx[i === 0 ? "moveTo" : "lineTo"](Math.cos(a) * rad, Math.sin(a) * rad);
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function draw() {
+    const g = ctx.createLinearGradient(0, 0, 0, height);
+    g.addColorStop(0, "#0b1424");
+    g.addColorStop(1, "#1d3350");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = "rgba(255,255,255,.55)";
+    for (let i = 0; i < 60; i++) {
+      const x = (i * 137.5) % width;
+      const y = (i * 89.3) % (height * 0.72);
+      const s = (i % 3) + 1;
+      ctx.fillRect(x, y, s, s);
+    }
+
+    for (const item of items) {
+      if (item.bomb) {
+        ctx.fillStyle = "#ff6b5a";
+        ctx.beginPath();
+        ctx.arc(item.x, item.y, item.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "#2b0b0b";
+        ctx.beginPath();
+        ctx.arc(item.x - 4, item.y - 3, 2.4, 0, Math.PI * 2);
+        ctx.arc(item.x + 4, item.y - 3, 2.4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = "#ffb084";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(item.x, item.y - item.r);
+        ctx.lineTo(item.x + 6, item.y - item.r - 10);
+        ctx.stroke();
+      } else {
+        drawStar(item.x, item.y, item.r, item.rot, "#ffd166");
+      }
+    }
+
+    ctx.fillStyle = "#ff4d8b";
+    ctx.beginPath();
+    ctx.roundRect(basket.x - basket.w / 2, basket.y, basket.w, basket.h, 12);
+    ctx.fill();
+    ctx.fillStyle = "#ffd166";
+    ctx.fillRect(basket.x - basket.w / 2 + 8, basket.y + 5, basket.w - 16, 4);
+  }
+
+  function frame(now) {
+    if (!running) return;
+    const dt = Math.min((now - last) / 1000, 0.05);
+    last = now;
+    timeLeft -= dt;
+    timeEl.textContent = Math.max(0, Math.ceil(timeLeft));
+    if (timeLeft <= 0) { end(); return; }
+
+    spawnTimer -= dt;
+    if (spawnTimer <= 0) {
+      spawn();
+      spawnTimer = Math.max(0.16, 0.55 - stars * 0.008);
+    }
+
+    for (const item of items) {
+      item.y += item.vy * dt;
+      item.rot += dt * 1.6;
+      if (item.y > basket.y - 4 && item.y < basket.y + basket.h + 12) {
+        if (Math.abs(item.x - basket.x) < basket.w / 2 + item.r * 0.5) {
+          item.dead = true;
+          if (item.bomb) {
+            stars = Math.max(0, stars - 2);
+          } else {
+            stars += 1;
+          }
+          scoreEl.textContent = stars;
+        }
+      }
+    }
+    items = items.filter((item) => item.y < height + 40 && !item.dead);
+    draw();
+    requestAnimationFrame(frame);
+  }
+
+  function moveTo(x) {
+    basket.x = Math.max(basket.w / 2, Math.min(width - basket.w / 2, x));
+  }
+
+  canvas.addEventListener("pointermove", (event) => moveTo(event.clientX));
+  canvas.addEventListener("pointerdown", (event) => moveTo(event.clientX));
+
+  function start() {
+    items = []; stars = 0; timeLeft = 30; spawnTimer = 0;
+    // 开局先撒几颗星星，画面不会空着等
+    for (let i = 0; i < 4; i++) {
+      spawn();
+      const item = items[items.length - 1];
+      if (!item.bomb) item.y = height * (0.15 + Math.random() * 0.4);
+    }
+    scoreEl.textContent = "0"; timeEl.textContent = "30";
+    overEl.hidden = true;
+    running = true;
+    last = performance.now();
+    requestAnimationFrame(frame);
+  }
+
+  function end() {
+    running = false;
+    finalEl.textContent = stars;
+    overEl.hidden = false;
+    draw();
+  }
+
+  document.getElementById("again").addEventListener("click", start);
+  window.addEventListener("resize", resize);
+  resize();
+  start();
+})();
+</script>
+</body>
+</html>

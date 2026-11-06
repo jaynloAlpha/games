@@ -1,0 +1,12 @@
+{
+  "title": "新游戏模板",
+  "summary": "复制这个文件夹，改一改就能变成一个新游戏。",
+  "description": "这是模板游戏。复制 games/_template 为 games/your-game，修改 game.json 和 index.html 即可。",
+  "category": "益智",
+  "tags": ["模板"],
+  "age": "全年龄",
+  "accent": "mint",
+  "icon": "🧩",
+  "order": 100,
+  "published": true
+}

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="黏土小怪兽泥泥">
+  <defs>
+    <linearGradient id="mBody" x1="120" y1="52" x2="290" y2="352" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffb3cd"/>
+      <stop offset=".46" stop-color="#ff6f9f"/>
+      <stop offset="1" stop-color="#e83f78"/>
+    </linearGradient>
+    <linearGradient id="mArm" x1="60" y1="190" x2="130" y2="262" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff8fb2"/>
+      <stop offset="1" stop-color="#ef4f86"/>
+    </linearGradient>
+    <radialGradient id="mBelly">
+      <stop offset="0" stop-color="#ffdbe8" stop-opacity=".6"/>
+      <stop offset=".65" stop-color="#ffdbe8" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#ffdbe8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="mBlush">
+      <stop offset="0" stop-color="#ff4d7f" stop-opacity=".5"/>
+      <stop offset="1" stop-color="#ff4d7f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mLeaf" x1="168" y1="6" x2="228" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c4e8cd"/>
+      <stop offset="1" stop-color="#7fb98d"/>
+    </linearGradient>
+    <clipPath id="mClip">
+      <path d="M200 58C286 58 340 118 340 199C340 286 282 344 200 344C118 344 60 286 60 199C60 118 114 58 200 58Z"/>
+    </clipPath>
+  </defs>
+
+  <ellipse cx="200" cy="360" rx="116" ry="15" fill="#0a0a0a" opacity=".08"/>
+
+  <ellipse cx="156" cy="340" rx="38" ry="22" fill="#d93068"/>
+  <ellipse cx="244" cy="340" rx="38" ry="22" fill="#d93068"/>
+  <ellipse cx="156" cy="336" rx="33" ry="18" fill="#f75d93"/>
+  <ellipse cx="244" cy="336" rx="33" ry="18" fill="#f75d93"/>
+
+  <rect x="42" y="194" width="76" height="48" rx="24" fill="url(#mArm)" transform="rotate(-26 80 218)"/>
+  <rect x="282" y="194" width="76" height="48" rx="24" fill="url(#mArm)" transform="rotate(26 320 218)"/>
+
+  <path d="M200 58C286 58 340 118 340 199C340 286 282 344 200 344C118 344 60 286 60 199C60 118 114 58 200 58Z" fill="url(#mBody)"/>
+
+  <g clip-path="url(#mClip)">
+    <ellipse cx="200" cy="274" rx="96" ry="82" fill="url(#mBelly)"/>
+    <ellipse cx="136" cy="120" rx="48" ry="27" fill="#ffffff" opacity=".2" transform="rotate(-30 136 120)"/>
+    <ellipse cx="112" cy="158" rx="12" ry="6" fill="#ffffff" opacity=".14" transform="rotate(-30 112 158)"/>
+  </g>
+
+  <path d="M200 60C200 42 198 30 196 22" stroke="#5c8a5a" stroke-width="7" stroke-linecap="round"/>
+  <path d="M197 35C179 31 169 19 171 6C187 8 198 18 199 32Z" fill="url(#mLeaf)"/>
+  <path d="M199 42C216 36 230 25 228 12C212 14 200 26 198 39Z" fill="#a4d4c5"/>
+
+  <ellipse cx="158" cy="196" rx="17" ry="24" fill="#0f1720"/>
+  <ellipse cx="242" cy="196" rx="17" ry="24" fill="#0f1720"/>
+  <circle cx="164" cy="187" r="5.5" fill="#ffffff"/>
+  <circle cx="248" cy="187" r="5.5" fill="#ffffff"/>
+  <circle cx="153" cy="207" r="2.6" fill="#ffffff" opacity=".72"/>
+  <circle cx="237" cy="207" r="2.6" fill="#ffffff" opacity=".72"/>
+
+  <circle cx="118" cy="238" r="27" fill="url(#mBlush)"/>
+  <circle cx="282" cy="238" r="27" fill="url(#mBlush)"/>
+
+  <path d="M176 245C186 263 214 263 224 245" stroke="#0f1720" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <ellipse cx="200" cy="257" rx="9" ry="6" fill="#ff8fb0"/>
+
+  <path d="M322 92l4.5 11 11 4.5-11 4.5-4.5 11-4.5-11-11-4.5 11-4.5z" fill="#e8b94a"/>
+  <circle cx="82" cy="118" r="6" fill="#a4d4c5"/>
+  <circle cx="352" cy="188" r="9" fill="#b8a4ed"/>
+</svg>

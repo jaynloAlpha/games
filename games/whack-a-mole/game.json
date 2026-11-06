@@ -1,0 +1,15 @@
+{
+  "title": "打地鼠",
+  "summary": "地鼠冒头就敲它，看看三十秒能敲中几只。",
+  "description": "地鼠会从洞里随机冒出来，看到就快点敲它。敲中得分，三十秒结束看看成绩。\n\n这个游戏来自家里的老项目，搬进乐园给小朋友继续玩。",
+  "category": "动作",
+  "tags": ["经典", "反应"],
+  "age": "3–6 岁",
+  "accent": "peach",
+  "icon": "🐹",
+  "cover": "cover.svg",
+  "controls": "点击冒头的地鼠",
+  "featured": true,
+  "order": 3,
+  "published": true
+}

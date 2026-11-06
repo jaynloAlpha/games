@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<!-- 手机上禁止双击缩放，玩起来更像 App -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>打地鼠 · 给小朋友的小游戏</title>
+<style>
+  /* ===== 想改颜色，改这里的变量就行 ===== */
+  :root{
+    --bg1:#1b2a4a;
+    --bg2:#0e1526;
+    --accent:#ffd166;
+    --good:#4ade80;
+  }
+
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+  html,body{
+    margin:0; height:100%;
+    background:radial-gradient(circle at 50% 0%, var(--bg1), var(--bg2) 70%);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    color:#fff;
+    overflow:hidden;
+    user-select:none;
+  }
+
+  .game{
+    position:relative;
+    height:100%;
+    max-width:520px;
+    margin:0 auto;
+    padding:16px 16px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+
+  /* ===== 顶部信息栏 ===== */
+  header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .stat{
+    flex:1;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:14px;
+    padding:8px 14px;
+    display:flex;
+    align-items:baseline;
+    gap:6px;
+  }
+  .stat b{ font-size:26px; font-variant-numeric:tabular-nums; }
+  .stat small{ font-size:12px; opacity:.55; }
+
+  #sound{
+    width:44px; height:44px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.07);
+    font-size:18px;
+    cursor:pointer;
+    color:#fff;
+  }
+
+  /* 时间进度条 */
+  .bar{
+    height:6px;
+    border-radius:99px;
+    background:rgba(255,255,255,.1);
+    overflow:hidden;
+    flex:none;
+  }
+  .bar i{
+    display:block;
+    height:100%;
+    width:100%;
+    border-radius:99px;
+    background:linear-gradient(90deg, var(--good), var(--accent));
+    transition:width .1s linear;
+  }
+
+  /* ===== 九宫格 ===== */
+  .grid{
+    flex:1;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    grid-template-rows:repeat(3, 1fr);
+    gap:10px;
+    touch-action:manipulation;
+  }
+
+  .hole{
+    position:relative;
+    border-radius:18px;
+    background:rgba(255,255,255,.04);
+    overflow:hidden;
+    cursor:pointer;
+  }
+  /* 洞口 */
+  .hole::after{
+    content:"";
+    position:absolute;
+    left:50%; bottom:6%;
+    width:70%; height:18%;
+    transform:translateX(-50%);
+    border-radius:50%;
+    background:radial-gradient(ellipse at 50% 30%, #000 0%, #00000088 60%, transparent 75%);
+  }
+
+  .mole{
+    position:absolute;
+    z-index:2;              /* 盖在洞口之上 */
+    left:50%;
+    bottom:14%;
+    font-size:clamp(34px, 11vw, 62px);
+    line-height:1;
+    transform:translate(-50%, 130%) scale(.6);
+    opacity:0;
+    transition:transform .13s cubic-bezier(.34,1.56,.64,1), opacity .1s;
+    will-change:transform;
+  }
+  .mole.up{
+    transform:translate(-50%, -10%) scale(1);
+    opacity:1;
+  }
+
+  /* 打中的小反馈 */
+  .hole.hit{
+    background:rgba(255,209,102,.22);
+  }
+
+  /* ===== 飘分动画 ===== */
+  .float{
+    position:absolute;
+    font-weight:700;
+    font-size:20px;
+    color:var(--accent);
+    pointer-events:none;
+    animation:floatUp .7s ease-out forwards;
+    z-index:5;
+  }
+  @keyframes floatUp{
+    from{ transform:translate(-50%,0); opacity:1; }
+    to{ transform:translate(-50%,-60px); opacity:0; }
+  }
+
+  /* ===== 开始 / 结束遮罩 ===== */
+  .overlay{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    background:rgba(10,16,30,.82);
+    backdrop-filter:blur(6px);
+    text-align:center;
+    padding:24px;
+    z-index:10;
+  }
+  .overlay.hide{ display:none; }
+  .overlay h1{ margin:0; font-size:34px; letter-spacing:2px; }
+  .overlay p{ margin:0; opacity:.65; font-size:15px; line-height:1.6; }
+  .overlay .big{
+    font-size:56px;
+    font-weight:800;
+    color:var(--accent);
+    font-variant-numeric:tabular-nums;
+    line-height:1.1;
+  }
+  .btn{
+    margin-top:10px;
+    padding:14px 44px;
+    border:none;
+    border-radius:99px;
+    font-size:19px;
+    font-weight:700;
+    color:#16233d;
+    background:linear-gradient(180deg,#ffe08a,#f6b73c);
+    box-shadow:0 8px 24px -6px rgba(246,183,60,.7);
+    cursor:pointer;
+  }
+  .btn:active{ transform:scale(.96); }
+</style>
+</head>
+<body>
+<div class="game" id="game">
+
+  <header>
+    <div class="stat"><b id="score">0</b><small>分</small></div>
+    <div class="stat"><b id="time">30</b><small>秒</small></div>
+    <button id="sound" title="声音开关">🔊</button>
+  </header>
+
+  <div class="bar"><i id="bar"></i></div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="overlay" id="overlay">
+    <h1 id="ov-title">打地鼠</h1>
+    <p id="ov-text">冒出来的小地鼠，点它就得分</p>
+    <button class="btn" id="start">开始游戏</button>
+  </div>
+
+</div>
+
+<script>
+/* ================= 想调难度，只改这 4 行 ================= */
+const TOTAL_TIME   = 30;   // 一局多少秒
+const START_SHOW   = 1000; // 地鼠第一次露头停留多久（毫秒）
+const MIN_SHOW     = 520;  // 最快时露头多久（越小越难）
+const SPEED_STEP   = 25;   // 每得 1 分，露头时间减少多少毫秒
+/* ======================================================== */
+
+const grid      = document.getElementById('grid');
+const scoreEl   = document.getElementById('score');
+const timeEl    = document.getElementById('time');
+const barEl     = document.getElementById('bar');
+const overlay   = document.getElementById('overlay');
+const ovTitle   = document.getElementById('ov-title');
+const ovText    = document.getElementById('ov-text');
+const startBtn  = document.getElementById('start');
+const soundBtn  = document.getElementById('sound');
+const gameEl    = document.getElementById('game');
+
+let score = 0;
+let timeLeft = TOTAL_TIME;
+let running = false;
+let moleTimer = null;   // 控制地鼠露头/缩回
+let tickTimer = null;   // 控制倒计时
+let activeHole = null;  // 当前露头的地鼠所在洞
+let lastIndex = -1;
+let soundOn = true;
+let audioCtx = null;
+
+/* 建 9 个洞 */
+for (let i = 0; i < 9; i++) {
+  const hole = document.createElement('div');
+  hole.className = 'hole';
+  hole.dataset.index = i;
+  const mole = document.createElement('div');
+  mole.className = 'mole';
+  mole.textContent = '🐹';
+  hole.appendChild(mole);
+  grid.appendChild(hole);
+}
+
+/* ---------- 音效：不加载任何音频文件，用浏览器现场合成 ---------- */
+function beep(freq, dur, type) {
+  if (!soundOn) return;
+  try {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type || 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.16, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + dur);
+  } catch (e) { /* 没有声音也不影响玩 */ }
+}
+
+/* ---------- 随机挑一个洞，尽量不连着重复 ---------- */
+function pickHole() {
+  let i;
+  do { i = Math.floor(Math.random() * 9); } while (i === lastIndex && Math.random() < 0.8);
+  lastIndex = i;
+  return i;
+}
+
+/* ---------- 核心循环：一只地鼠缩回去，下一只冒出来 ---------- */
+function popOne() {
+  if (!running) return;
+
+  const hole = grid.children[pickHole()];
+  const mole = hole.firstElementChild;
+  activeHole = hole;
+  mole.classList.add('up');
+
+  // 越打越快
+  const showMs = Math.max(MIN_SHOW, START_SHOW - score * SPEED_STEP);
+
+  moleTimer = setTimeout(() => {
+    mole.classList.remove('up');
+    activeHole = null;
+    // 缩回去后，隔一小会儿再冒下一只
+    moleTimer = setTimeout(popOne, Math.max(160, 500 - score * 8));
+  }, showMs);
+}
+
+/* ---------- 打中 ---------- */
+function hit(hole, mole, ev) {
+  if (!running) return;
+  clearTimeout(moleTimer);
+
+  score++;
+  scoreEl.textContent = score;
+
+  mole.classList.remove('up');
+  hole.classList.add('hit');
+  setTimeout(() => hole.classList.remove('hit'), 120);
+  activeHole = null;
+
+  // 飘分
+  const rect = gameEl.getBoundingClientRect();
+  const f = document.createElement('div');
+  f.className = 'float';
+  f.textContent = '+1';
+  f.style.left = (ev.clientX - rect.left) + 'px';
+  f.style.top  = (ev.clientY - rect.top) + 'px';
+  gameEl.appendChild(f);
+  setTimeout(() => f.remove(), 700);
+
+  beep(880, 0.08, 'triangle');
+
+  moleTimer = setTimeout(popOne, 140);
+}
+
+/* ---------- 点击/触摸 ---------- */
+grid.addEventListener('pointerdown', (ev) => {
+  if (!running) return;
+  const hole = ev.target.closest('.hole');
+  if (!hole) return;
+  if (hole !== activeHole) return;                 // 没地鼠的洞点了不算
+  const mole = hole.firstElementChild;
+  if (!mole.classList.contains('up')) return;
+  hit(hole, mole, ev);
+});
+grid.addEventListener('contextmenu', e => e.preventDefault()); // 长按不弹菜单
+
+/* ---------- 倒计时 ---------- */
+function tick() {
+  timeLeft -= 0.1;
+  if (timeLeft <= 0) { timeLeft = 0; render(); end(); return; }
+  render();
+}
+
+function render() {
+  timeEl.textContent = Math.ceil(timeLeft);
+  barEl.style.width = (timeLeft / TOTAL_TIME * 100) + '%';
+}
+
+/* ---------- 开始 ---------- */
+function start() {
+  score = 0;
+  timeLeft = TOTAL_TIME;
+  lastIndex = -1;
+  running = true;
+  activeHole = null;
+  scoreEl.textContent = '0';
+  render();
+
+  overlay.classList.add('hide');
+  clearTimeout(moleTimer);
+  clearInterval(tickTimer);
+
+  tickTimer = setInterval(tick, 100);
+  popOne();
+  beep(660, 0.09, 'sine');
+}
+
+/* ---------- 结束 ---------- */
+function end() {
+  running = false;
+  clearTimeout(moleTimer);
+  clearInterval(tickTimer);
+
+  if (activeHole) {
+    activeHole.firstElementChild.classList.remove('up');
+    activeHole = null;
+  }
+
+  ovTitle.textContent = '时间到！';
+  ovText.innerHTML = `这一局得了 <div class="big">${score}</div> 分`;
+  startBtn.textContent = '再玩一次';
+  overlay.classList.remove('hide');
+
+  beep(520, 0.12, 'sine');
+  setTimeout(() => beep(392, 0.2, 'sine'), 140);
+}
+
+/* ---------- 声音开关 ---------- */
+soundBtn.addEventListener('click', () => {
+  soundOn = !soundOn;
+  soundBtn.textContent = soundOn ? '🔊' : '🔇';
+});
+
+startBtn.addEventListener('click', start);
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# 构建产物与本地调试文件
+/target
+/dist
+/dist.tar.gz
+/_shots
+/_tmp
+
+# 本地环境
+/.env
+
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+*.log
+.idea
+.vscode

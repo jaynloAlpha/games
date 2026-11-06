@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>找不到页面 · {{SITE_TITLE}}</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#fffaf0">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/baloo2-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/app.css?v={{ASSET_VERSION}}">
+</head>
+<body>
+  <header class="site-nav">
+    <div class="container nav-inner">
+      <a class="brand" href="/" aria-label="{{SITE_TITLE}} 首页">
+        <span class="brand-mark"><img src="/assets/img/favicon.svg" alt="" width="36" height="36"></span>
+        <span class="brand-text">
+          <strong>{{SITE_TITLE}}</strong>
+          <small>{{SITE_TAGLINE}}</small>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a class="nav-link nav-link-quiet" href="/">回到乐园</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container error-page">
+    <div>
+      <img src="/assets/img/mascot.svg" alt="睡着了的黏土小怪兽" width="190" height="190">
+      <h1>这个页面去睡觉了</h1>
+      <p>{{MESSAGE}}</p>
+      <a class="btn btn-primary btn-lg" href="/">回到乐园</a>
+    </div>
+  </main>
+</body>
+</html>
