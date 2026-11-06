@@ -1,13 +1,35 @@
 const fs=require('fs'),http=require('http'),path=require('path'),assert=require('assert');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 (async()=>{
-fs.mkdirSync('target/monster-game-check',{recursive:true});const root=path.resolve('games/whack-a-mole');const server=http.createServer((req,res)=>{const file=path.join(root,decodeURIComponent(new URL(req.url,'http://localhost').pathname==='/'?'/index.html':new URL(req.url,'http://localhost').pathname));if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}fs.readFile(file,(e,b)=>{if(e){res.writeHead(404).end();return;}res.setHeader('Content-Type',file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':file.endsWith('.png')?'image/png':'text/html');res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:");res.end(b);});});await new Promise(r=>server.listen(18789,'127.0.0.1',r));
+fs.mkdirSync('target/monster-game-check',{recursive:true});const root=path.resolve('games/whack-a-mole');const server=http.createServer((req,res)=>{const file=path.join(root,decodeURIComponent(new URL(req.url,'http://localhost').pathname==='/'?'/index.html':new URL(req.url,'http://localhost').pathname));if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}fs.readFile(file,(e,b)=>{if(e){res.writeHead(404).end();return;}res.setHeader('Content-Type',file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':file.endsWith('.png')?'image/png':file.endsWith('.wav')?'audio/wav':file.endsWith('.mp3')?'audio/mpeg':'text/html');res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:");res.end(b);});});await new Promise(r=>server.listen(18789,'127.0.0.1',r));
 
 
 const browser=await chromium.launch({headless:true,...(process.env.MONSTER_BROWSER_PATH?{executablePath:process.env.MONSTER_BROWSER_PATH}:{})});
 try{
 const page=await browser.newPage({viewport:{width:1100,height:850},hasTouch:true});const errors=[];page.on('pageerror',e=>errors.push(e.message));const act=code=>page.evaluate(code);
 await page.goto('http://127.0.0.1:18789');await page.waitForFunction(()=>state==='playing');assert.equal(await page.locator('#overlay').isVisible(),false,'no start screen');assert.equal(await act(()=>profileIndex),0);assert.equal(await act(()=>holes.find(h=>h.type!==null).type>=10),true);
+if(process.env.MONSTER_FX_CHECK){
+ const forceHero=async()=>{await act(()=>{clearWrongFeedback();cancelAnimationFrame(clock);holes.forEach(clearHole);const h=holes[8];h.type=0;h.ttl=9000;setActor(h);h.el.classList.add('up');});await page.waitForTimeout(450);const box=await page.locator('.actor').nth(8).boundingBox();await page.mouse.click(box.x+box.width*.5,box.y+box.height*.35);};
+ await forceHero();await page.waitForFunction(()=>!wrongSound.paused&&wrongSound.readyState>=2);
+ assert.equal(await act(()=>score),-10);assert.equal(await act(()=>lives),4);assert.ok(Math.abs(await act(()=>wrongSound.duration)-2.9)<.01);assert.equal(await act(()=>music.volume),.12);
+ await act(()=>{document.querySelector('.wrong-feedback').getAnimations({subtree:true}).forEach(a=>a.pause());});
+ let near=0;
+ for(const [time,name] of [[500,'charge'],[830,'approach'],[1080,'glass']]){
+  await page.evaluate(t=>document.querySelector('.wrong-feedback').getAnimations({subtree:true}).forEach(a=>a.currentTime=t),time);
+  if(time===830)near=(await page.locator('.wave-projectile').boundingBox()).width;
+  if(time===1080){assert.ok((await page.locator('.wave-projectile').boundingBox()).width>near*2);assert.equal(await page.locator('.screen-cracks').evaluate(e=>getComputedStyle(e).transform),'none');}
+  await page.screenshot({path:'target/monster-game-check/wrong-'+name+'.png'});
+ }
+ await page.evaluate(()=>document.querySelector('.wrong-feedback').getAnimations({subtree:true}).forEach(a=>a.play()));
+ await page.click('#pause');assert.equal(await act(()=>wrongSound.paused),true);const remaining=await act(()=>wrongFx.remaining);await page.waitForTimeout(150);assert.equal(await act(()=>wrongFx.remaining),remaining);await page.click('#start');await page.waitForFunction(()=>!wrongSound.paused);
+ await page.click('#sound');assert.equal(await act(()=>wrongSound.paused),true);await page.click('#sound');
+ await forceHero();assert.equal(await page.locator('.wrong-feedback').count(),1,'restart effect without stacking');
+ await act(()=>{finish(false,'测试结算');});assert.equal(await page.locator('#overlay').isVisible(),false,'show last blast before results');await page.waitForFunction(()=>wrongFx===null);assert.equal(await page.locator('#overlay').isVisible(),true);assert.equal(await act(()=>music.volume),.28);
+ await page.click('#start');assert.equal(await page.locator('.wrong-feedback').count(),0);assert.equal(await act(()=>wrongSound.paused),true);assert.deepEqual(errors,[]);
+ await page.setViewportSize({width:390,height:844});await forceHero();await page.waitForTimeout(1050);await page.screenshot({path:'target/monster-game-check/wrong-mobile.png'});await act(()=>clearWrongFeedback());
+ await page.emulateMedia({reducedMotion:'reduce'});await forceHero();assert.equal(await page.locator('.wave-projectile').evaluate(e=>getComputedStyle(e).display),'none');await act(()=>clearWrongFeedback());
+ console.log('PASS: 2.9s WAV decode; whole-unit wrong hit; perspective enlargement; fixed screen glass; pause/resume; mute; no stacked effects; final blast before results; cleanup; mobile and reduced motion');return;
+}
 if(process.env.MONSTER_MUSIC_CHECK){
  assert.equal(await act(()=>music.paused),true,'wait for a user gesture');
  await page.mouse.click(550,120);

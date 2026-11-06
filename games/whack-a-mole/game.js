@@ -15,28 +15,29 @@ music.loop=true;music.preload='auto';music.volume=.28;
 const wrongSound=new Audio('assets/wrong-ultraman.wav');
 wrongSound.preload='auto';wrongSound.volume=.62;
 let wrongFx=null;
-function clearWrongFeedback(){
+function clearWrongFeedback(complete=false){
+ const onComplete=complete&&wrongFx&&wrongFx.onComplete;
  if(wrongFx){clearTimeout(wrongFx.timer);wrongFx.layer.remove();wrongFx=null;}
- wrongSound.pause();wrongSound.currentTime=0;music.volume=.28;
+ wrongSound.pause();wrongSound.currentTime=0;music.volume=.28;$('grid').style.animation='';if(onComplete)onComplete();
 }
 function pauseWrongFeedback(){
- if(!wrongFx)return;clearTimeout(wrongFx.timer);wrongFx.remaining=Math.max(0,wrongFx.remaining-(performance.now()-wrongFx.started));wrongFx.layer.classList.add('effect-paused');wrongSound.pause();
+ if(!wrongFx)return;clearTimeout(wrongFx.timer);wrongFx.remaining=Math.max(0,wrongFx.remaining-(performance.now()-wrongFx.started));wrongFx.layer.classList.add('effect-paused');$('grid').style.animationPlayState='paused';wrongSound.pause();
 }
 function resumeWrongFeedback(){
- if(!wrongFx)return;wrongFx.started=performance.now();wrongFx.layer.classList.remove('effect-paused');wrongFx.timer=setTimeout(clearWrongFeedback,wrongFx.remaining);
+ if(!wrongFx)return;wrongFx.started=performance.now();wrongFx.layer.classList.remove('effect-paused');$('grid').style.animationPlayState='running';wrongFx.timer=setTimeout(()=>clearWrongFeedback(true),wrongFx.remaining);
  if(soundOn&&wrongFx.soundEnabled)wrongSound.play().catch(()=>{});
 }
 function wrongFeedback(h){
  clearWrongFeedback();const a=$('arena').getBoundingClientRect(),r=h.el.querySelector('.actor').getBoundingClientRect();
  const x=r.left-a.left+r.width*.5,y=r.top-a.top+r.height*.4,tx=a.width*.5,ty=a.height*.5;
- const distance=Math.hypot(tx-x,ty-y),angle=Math.atan2(ty-y,tx-x),height=Math.max(45,Math.min(150,distance*.4));
+ const zoom=Math.hypot(a.width,a.height)/80*1.3;
  const layer=document.createElement('div');layer.className='wrong-feedback';layer.setAttribute('aria-hidden','true');
  const charge=document.createElement('i');charge.className='wave-charge';charge.style.cssText=`left:${x}px;top:${y}px`;
- const beam=document.createElement('i');beam.className='wave-beam';beam.style.cssText=`left:${x}px;top:${y-height/2}px;width:${Math.max(70,distance)}px;height:${height}px;--angle:${angle}rad`;
+ const beam=document.createElement('i');beam.className='wave-projectile';beam.style.cssText=`left:${x}px;top:${y}px;--travel-x:${tx-x}px;--travel-y:${ty-y}px;--near-scale:${zoom};`;
  const flash=document.createElement('i');flash.className='wave-impact';
- const cracks=document.createElement('img');cracks.className='screen-cracks';cracks.src='assets/screen-cracks.png';cracks.alt='';
- layer.append(charge,beam,flash,cracks);$('arena').append(layer);
- wrongFx={layer,remaining:2900,started:performance.now(),soundEnabled:soundOn,timer:setTimeout(clearWrongFeedback,2900)};
+ const cracks=document.createElement('img');cracks.className='screen-cracks';cracks.src='assets/screen-glass.png';cracks.alt='';
+ layer.append(charge,beam,flash,cracks);$('arena').append(layer);$('grid').style.animation='none';void $('grid').offsetWidth;$('grid').style.animation='lens-recoil 2.9s both';
+ wrongFx={layer,remaining:2900,started:performance.now(),soundEnabled:soundOn,timer:setTimeout(()=>clearWrongFeedback(true),2900)};
  if(soundOn){wrongSound.currentTime=0;wrongSound.play().catch(()=>{if(soundOn){tone(240,.2,0,'triangle');tone(180,.25,.13);}});}
  music.volume=.12;
 }
@@ -65,7 +66,7 @@ function burst(h,bad){const r=h.el.getBoundingClientRect(),a=$('arena').getBound
 function hit(i){const h=holes[i];if(state!=='playing'||h.type===null||h.locked)return;const bad=h.type<10;h.locked=true;h.ttl=650;h.el.classList.add(bad?'wrong':'hit');if(bad){score-=profile.penalty;lives--;mistakes++;combo=0;$('mission').textContent='这是我们的朋友，要保护奥特曼哦！';}else{score+=10;hits++;combo++;$('mission').textContent=combo>=3?`${combo} 连击！小小守护者真厉害！`:'打得漂亮！继续寻找怪兽吧';}if(bad){h.ttl=1200;wrongFeedback(h);}else sfx('hit');burst(h,bad);render();if(lives===0)finish(false,'爱心用完啦，下次看清楚再出手。');else if(score>=TARGET)finish(true,'小镇恢复了平静，你是今天的光之小英雄！');}
 function frame(t){if(state!=='playing')return;const dt=Math.min(t-last,100);last=t;left=Math.max(0,left-dt/1000);holes.forEach(h=>{if(h.type!==null){h.ttl-=dt;if(h.ttl<=0){clearHole(h);}}});spawnIn-=dt;if(spawnIn<=0){if(holes.filter(h=>h.type!==null).length<profile.simultaneous)spawn();spawnIn=profile.interval;}render();if(left<=0){finish(false,'时间到啦！还差一点能量，再试一次吧。');return;}clock=requestAnimationFrame(frame);}
 function start(){clearWrongFeedback();profileIndex=selectedProfile;profile=profiles[profileIndex];TARGET=profile.target;DURATION=profile.duration;MAX_LIVES=profile.lives;$('overlay').classList.remove('resting');cancelAnimationFrame(clock);holes.forEach(clearHole);$('effects').replaceChildren();score=0;lives=MAX_LIVES;combo=hits=mistakes=0;left=DURATION;spawnIn=350;state='playing';syncMusic();$('overlay').hidden=true;$('pause').disabled=false;$('mission').textContent='只打怪兽，保护奥特曼！';render();spawn();last=performance.now();clock=requestAnimationFrame(frame);}
-function finish(win,message){state='ended';syncMusic();cancelAnimationFrame(clock);$('pause').disabled=true;holes.forEach(clearHole);$('title').textContent=win?'守护成功！':'再试一次吧！';$('message').textContent=message;$('overlay').classList.add('result');$('start').querySelector('span').textContent='再玩一次';$('start').setAttribute('aria-label','再玩一次');$('overlay').hidden=false;$('start').focus();sfx(win?'win':'lose');}
+function finish(win,message){state='ended';syncMusic();cancelAnimationFrame(clock);$('pause').disabled=true;holes.forEach(clearHole);$('title').textContent=win?'守护成功！':'再试一次吧！';$('message').textContent=message;$('overlay').classList.add('result');$('start').querySelector('span').textContent='再玩一次';$('start').setAttribute('aria-label','再玩一次');const reveal=()=>{$('overlay').hidden=false;$('start').focus();sfx(win?'win':'lose');};if(wrongFx)wrongFx.onComplete=reveal;else reveal();}
 function pause(){if(state!=='playing')return;selectedProfile=profileIndex;state='paused';pauseWrongFeedback();syncMusic();cancelAnimationFrame(clock);$('title').textContent='休息一下';$('overlay').classList.remove('result');$('message').textContent='';chooseDifficulty(profileIndex);$('start').querySelector('span').textContent='继续玩';$('start').setAttribute('aria-label','继续游戏');$('overlay').hidden=false;$('start').focus();}
 function resume(){state='playing';resumeWrongFeedback();syncMusic();$('overlay').hidden=true;last=performance.now();clock=requestAnimationFrame(frame);}
 function unlockAudio(){musicUnlocked=true;syncMusic();try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume().catch(()=>{});}catch{}}
@@ -79,10 +80,10 @@ $('arena').addEventListener('pointerdown',e=>{if(e.button!==0||e.target.closest(
 document.addEventListener('pointerdown',unlockAudio,{once:true});document.addEventListener('keydown',unlockAudio,{once:true});
 $('start').onclick=()=>state==='paused'&&selectedProfile===profileIndex?resume():start();$('pause').onclick=pause;$('scene-next').onclick=()=>chooseScene((sceneIndex+1)%scenes.length);
 $('sound').onclick=()=>{soundOn=!soundOn;if(!soundOn){wrongSound.pause();if(wrongFx)wrongFx.soundEnabled=false;}$('sound').classList.toggle('muted',!soundOn);$('sound').setAttribute('aria-label',soundOn?'关闭声音':'开启声音');$('sound').setAttribute('aria-pressed',String(!soundOn));syncMusic();};
-document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();syncMusic();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){if(state==='playing')pause();else pauseWrongFeedback();}else if(state==='ended'&&wrongFx)resumeWrongFeedback();syncMusic();});
 window.addEventListener('pagehide',()=>{music.pause();clearWrongFeedback();});
 document.addEventListener('keydown',e=>{if(e.repeat)return;if(e.key>='1'&&e.key<='9'&&state==='playing'){e.preventDefault();hit(Number(e.key)-1);}if(e.code==='Space'&&e.target===document.body){e.preventDefault();if(state==='playing')pause();else if(state==='paused'){if(selectedProfile===profileIndex)resume();else start();}}});
-Promise.all(['assets/heroes.png','assets/monsters.png','assets/props.png','assets/town.png','assets/forest.png','assets/harbor.png','assets/ui-atlas.png','assets/screen-cracks.png','assets/energy-beam.png'].map(src=>new Promise((resolve,reject)=>{const im=new Image();im.onload=resolve;im.onerror=reject;im.src=src;}))).then(()=>start()).catch(()=>{$('title').textContent='再试一下';$('message').textContent='美术加载遇到问题，点击重新打开。';$('overlay').hidden=false;$('start').querySelector('span').textContent='重新打开';$('start').onclick=()=>location.reload();});
+Promise.all(['assets/heroes.png','assets/monsters.png','assets/props.png','assets/town.png','assets/forest.png','assets/harbor.png','assets/ui-atlas.png','assets/screen-glass.png','assets/front-blast.png'].map(src=>new Promise((resolve,reject)=>{const im=new Image();im.onload=resolve;im.onerror=reject;im.src=src;}))).then(()=>start()).catch(()=>{$('title').textContent='再试一下';$('message').textContent='美术加载遇到问题，点击重新打开。';$('overlay').hidden=false;$('start').querySelector('span').textContent='重新打开';$('start').onclick=()=>location.reload();});
 function setActor(h){const n=h.type%10;h.el.firstChild.classList.toggle('monster',h.type>=10);h.el.firstChild.style.setProperty('--col',n%5);h.el.firstChild.style.setProperty('--row',Math.floor(n/5));}
 const scenes=[
  {name:'光之小镇',image:'town',spots:[[17,35,0],[47,29,1],[80,34,1],[29,56,2],[65,52,0],[87,68,2],[13,81,1],[46,82,2],[72,85,1]]},
