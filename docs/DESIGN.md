@@ -17,7 +17,7 @@
 | --- | --- | --- |
 | Canvas | `#fffaf0` | 全站底色 |
 | Card | `#fffdf7` | 游戏卡片 |
-| Surface soft | `#faf5e8` | 空状态、游戏页信息面板 |
+| Surface soft | `#faf5e8` | 空状态、游戏加载/错误态 |
 | Surface card | `#f5f0e0` | 分类选中态、品牌图标底 |
 | Ink | `#0a0a0a` | 标题、主按钮 |
 | Muted | `#6a6a6a` | 介绍文字、分类未选中 |

@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 (function () {
-  const { api, escapeHtml, toast, bindCoverFallbacks } = window.Clay;
+  const { api, escapeHtml, toast } = window.Clay;
 
   const body = document.body;
   const slug = body.dataset.slug;
@@ -8,10 +8,6 @@
   const frame = document.getElementById("frame");
   const loading = document.getElementById("loading");
   const playSub = document.getElementById("playSub");
-  const gameMeta = document.getElementById("gameMeta");
-  const infoDesc = document.getElementById("infoDesc");
-  const tagRow = document.getElementById("tagRow");
-  const nextList = document.getElementById("nextList");
   const fullscreenBtn = document.getElementById("fullscreenBtn");
   const restartBtn = document.getElementById("restartBtn");
 
@@ -28,19 +24,6 @@
       </div>`;
     if (loading) loading.remove();
     playSub.textContent = "没能加载这个游戏";
-    infoDesc.textContent = message;
-  }
-
-  function applyMeta() {
-    playSub.textContent = [game.category, game.age].filter(Boolean).join(" · ");
-    const meta = [game.age ? `适合 ${game.age}` : "", game.controls].filter(Boolean).join(" · ");
-    gameMeta.textContent = meta;
-    gameMeta.hidden = !meta;
-    infoDesc.textContent =
-      game.description || game.summary || "这个小游戏还没有写介绍，点开玩就知道了。";
-    tagRow.innerHTML = (game.tags || [])
-      .map((tag) => `<span class="tag">#${escapeHtml(tag)}</span>`)
-      .join("");
   }
 
   function startGame() {
@@ -58,40 +41,6 @@
     if (!gameUrl) return;
     loading.classList.remove("is-hidden");
     frame.src = `${gameUrl}?r=${Date.now()}`;
-  }
-
-  async function loadNext() {
-    try {
-      const payload = await api("/api/games");
-      const others = (payload.games || []).filter((item) => item.slug !== slug).slice(0, 3);
-      if (!others.length) {
-        nextList.innerHTML = '<p class="result-count">还没有别的游戏，敬请期待。</p>';
-        return;
-      }
-      nextList.innerHTML = others
-        .map((item) => {
-          const thumb = item.cover
-            ? `<span class="next-thumb"><img data-cover data-icon="${escapeHtml(
-                item.icon || "🎮"
-              )}" src="/covers/${encodeURIComponent(item.slug)}?v=${
-                item.updatedAt || 0
-              }" alt="" loading="lazy"></span>`
-            : `<span class="next-thumb">${escapeHtml(item.icon || "🎮")}</span>`;
-          const metaText = [item.category, item.age].filter(Boolean).map(escapeHtml).join(" · ");
-          return `
-            <a class="next-card" href="/play/${encodeURIComponent(item.slug)}">
-              ${thumb}
-              <span class="row-main">
-                <strong>${escapeHtml(item.title)}</strong>
-                <small>${metaText}</small>
-              </span>
-            </a>`;
-        })
-        .join("");
-      bindCoverFallbacks(nextList);
-    } catch {
-      nextList.innerHTML = '<p class="result-count">其他游戏加载失败。</p>';
-    }
   }
 
   fullscreenBtn.addEventListener("click", async () => {
@@ -116,9 +65,8 @@
   (async function boot() {
     try {
       game = await api(`/api/games/${encodeURIComponent(slug)}`);
-      applyMeta();
+      playSub.textContent = [game.category, game.age].filter(Boolean).join(" · ");
       startGame();
-      loadNext();
     } catch (error) {
       showError(
         error.status === 404
