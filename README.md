@@ -4,13 +4,15 @@
 
 ![首页](docs/home.png)
 
-游戏页长这样：`docs/play.png`（大画布 + 同源 iframe + 手机全屏）。
+![游戏页](docs/play.png)
+
+手机端效果见 [docs/mobile.png](docs/mobile.png)。
 
 - **没有账号、没有广告、没有上传接口**：打开网页就能玩，关掉就结束。
 - **单二进制部署**：`clayplay` + `games/` + `site.json`，运行期只读、无数据库。
 - **游戏随代码走**：每个游戏是一个文件夹，用 git 管理、评审和回滚。
 - **开发即改即看**：运行中每 10 秒扫描一次 `games/`，保存后刷新页面即可。
-- **Clay 设计语言**：奶油底色、糖果色卡片、大圆角、黏土插画，详见 [docs/DESIGN.md](docs/DESIGN.md)。
+- **Clay 设计语言**：奶油底色、糖果色封面、大圆角、黏土插画，详见 [docs/DESIGN.md](docs/DESIGN.md)。
 
 ## 快速开始
 
@@ -94,7 +96,7 @@ cp -r games/_template games/my-game
 
 ## 站点配置
 
-`site.json` 控制站点标题、副标题、简介、分类和页脚：
+`site.json` 控制站点标题、副标题、简介和分类：
 
 ```json
 {
@@ -102,8 +104,7 @@ cp -r games/_template games/my-game
   "tagline": "小手点一点，快乐玩一天",
   "description": "给小朋友的迷你游戏乐园。",
   "accent": "pink",
-  "categories": ["益智", "动作", "音乐", "故事", "创意", "运动"],
-  "footerNote": "由家人用心制作 · 慢慢上新"
+  "categories": ["益智", "动作", "音乐", "故事", "创意", "运动"]
 }
 ```
 
@@ -188,7 +189,7 @@ web/
   index.html play.html 404.html
   assets/css/app.css
   assets/js/{common,home,play}.js
-  assets/img/{mascot,favicon,hills}.svg
+  assets/img/{mascot,favicon}.svg
   assets/fonts/baloo2-latin.woff2
 games/
   _template/    复制它开始新游戏

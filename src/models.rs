@@ -152,8 +152,6 @@ pub struct SiteSettings {
     pub accent: String,
     #[serde(default = "default_categories")]
     pub categories: Vec<String>,
-    #[serde(default)]
-    pub footer_note: String,
 }
 
 fn default_categories() -> Vec<String> {
@@ -171,7 +169,6 @@ impl Default for SiteSettings {
             description: "给小朋友的迷你游戏乐园，打开网页就能玩，没有广告，不用注册。".to_string(),
             accent: "pink".to_string(),
             categories: default_categories(),
-            footer_note: "由家人用心制作 · 慢慢上新".to_string(),
         }
     }
 }
@@ -181,7 +178,6 @@ impl SiteSettings {
         self.title = self.title.trim().to_string();
         self.tagline = self.tagline.trim().to_string();
         self.description = self.description.trim().to_string();
-        self.footer_note = self.footer_note.trim().to_string();
         self.accent = self.accent.trim().to_ascii_lowercase();
 
         if self.title.is_empty() || self.title.chars().count() > 40 {
@@ -210,9 +206,6 @@ impl SiteSettings {
         }
         if self.categories.iter().any(|c| c.chars().count() > 16) {
             return Err("单个分类最多 16 个字".into());
-        }
-        if self.footer_note.chars().count() > 120 {
-            return Err("footerNote 最多 120 个字".into());
         }
         Ok(())
     }

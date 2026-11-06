@@ -82,11 +82,6 @@ fn site_pairs(site: &SiteSettings) -> Vec<(String, String)> {
     vec![
         ("{{SITE_TITLE}}".into(), util::escape_html(&site.title)),
         ("{{SITE_TAGLINE}}".into(), util::escape_html(&site.tagline)),
-        ("{{SITE_DESC}}".into(), util::escape_html(&site.description)),
-        (
-            "{{FOOTER_NOTE}}".into(),
-            util::escape_html(&site.footer_note),
-        ),
         ("{{SITE_ACCENT}}".into(), util::escape_html(&site.accent)),
         ("{{YEAR}}".into(), util::current_year().to_string()),
         (

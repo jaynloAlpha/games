@@ -8,7 +8,7 @@
   const frame = document.getElementById("frame");
   const loading = document.getElementById("loading");
   const playSub = document.getElementById("playSub");
-  const metaRow = document.getElementById("metaRow");
+  const gameMeta = document.getElementById("gameMeta");
   const infoDesc = document.getElementById("infoDesc");
   const tagRow = document.getElementById("tagRow");
   const nextList = document.getElementById("nextList");
@@ -33,11 +33,9 @@
 
   function applyMeta() {
     playSub.textContent = [game.category, game.age].filter(Boolean).join(" · ");
-    const pills = [];
-    if (game.age) pills.push(`<span class="pill">👶 ${escapeHtml(game.age)}</span>`);
-    if (game.category) pills.push(`<span class="pill">🎯 ${escapeHtml(game.category)}</span>`);
-    if (game.controls) pills.push(`<span class="pill">🎮 ${escapeHtml(game.controls)}</span>`);
-    metaRow.innerHTML = pills.join("");
+    const meta = [game.age ? `适合 ${game.age}` : "", game.controls].filter(Boolean).join(" · ");
+    gameMeta.textContent = meta;
+    gameMeta.hidden = !meta;
     infoDesc.textContent =
       game.description || game.summary || "这个小游戏还没有写介绍，点开玩就知道了。";
     tagRow.innerHTML = (game.tags || [])

@@ -1,56 +1,54 @@
 # 设计说明
 
-本项目界面参考 **[VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md)** 中的 **Clay** 设计分析（`design-md/clay/DESIGN.md`），只借用其公开的设计 token 与排版原则，不复制其图片/字体资产。
+界面参考 **[VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md)** 里的 **Clay** 设计分析（`design-md/clay/DESIGN.md`），只借用公开的 token 与排版原则，不复制其图片/字体资产。
 
-## 为什么选 Clay
+## 设计目标
 
-平台是给 3–10 岁小朋友用的，需要“暖、软、色块大、按钮大”。Clay 的奶油画布 + 高饱和糖果卡片 + 超大圆角 + 圆体标题，正好同时满足童趣和可读性，也不会像通用后台模板那样冷。
+这是给小朋友用的“打开就玩”页面，不是营销站。所有界面决策都服务于一件事：**尽快看到游戏、点开游戏**。
+
+- 首屏只有：品牌、分类、游戏卡片。没有大标题、宣传语、搜索框和统计数字。
+- 分类是辅助信息，用低对比的文字标签，不抢卡片注意力。
+- 卡片本体是主体：封面 → 标题 → 一句话 → 适龄/分类 → 开玩。
+- 所有卡片整块可点，点击目标远大于 44×44。
 
 ## 采用的 token
 
 | 角色 | 值 | 用在哪里 |
 | --- | --- | --- |
 | Canvas | `#fffaf0` | 全站底色 |
-| Surface soft | `#faf5e8` | 家长区、页脚、游戏页信息面板 |
-| Surface card | `#f5f0e0` | 标签、统计、次级卡片 |
+| Card | `#fffdf7` | 游戏卡片 |
+| Surface soft | `#faf5e8` | 空状态、游戏页信息面板 |
+| Surface card | `#f5f0e0` | 分类选中态、品牌图标底 |
 | Ink | `#0a0a0a` | 标题、主按钮 |
-| Body | `#3a3a3a` | 正文 |
-| Muted | `#6a6a6a` | 次要文字 |
-| Hairline | `#e5e5e5` | 输入框、面板描边 |
-| Pink | `#ff4d8b` | 游戏卡片 / 主强调色 |
-| Teal | `#1a3a3a` | 深色强调卡片 |
-| Lavender | `#b8a4ed` | 游戏卡片 / 家长卡片 |
-| Peach | `#ffb084` | 推荐位 / 游戏卡片 |
-| Ochre | `#e8b94a` | 标题高亮下划线、插画点缀 |
-| Mint | `#a4d4c5` | 家长卡片、山丘 |
-| Coral | `#ff6b5a` | 游戏卡片 |
+| Muted | `#6a6a6a` | 介绍文字、分类未选中 |
+| Hairline | `#e5e5e5` / `#eee5d3` | 分隔线、卡片描边 |
+| Pink / Peach / Lavender / Mint / Ochre / Coral / Teal | 见 `app.css` | 游戏封面色块、推荐角标 |
 
-- 圆角：按钮/输入框 12px，内容卡片 16–18px，功能卡 24–26px，插画卡 32px。
-- 间距基数为 4px；区块节奏 `clamp()` 控制在 64–104px。
-- 字体：拉丁标题使用 Baloo 2（OFL，已内嵌 `web/assets/fonts/`），中文自动回落到 PingFang SC / 微软雅黑 / Noto Sans SC；正文使用系统无衬线字体。
+- 圆角：按钮 12px，封面 16px，卡片 22px。
+- 字体：拉丁标题 Baloo 2（OFL，已内嵌），中文回落到 PingFang SC / 微软雅黑 / Noto Sans SC；正文系统无衬线。
+- 卡片阴影很轻（`0 10px 24px -22px`），主要靠描边和封面颜色建立层次。
 
 ## 组件对应
 
 | Clay 组件 | 本项目实现 |
 | --- | --- |
-| top-nav | 奶油色 sticky 导航，76px |
-| hero 7/5 | 左文案 + 右黏土插画卡 |
-| feature-card-* | 家长三卡、游戏卡片、推荐位 |
-| category-tab | 分类 chips |
-| badge-pill | 适龄 / 分类 / 标签 |
-| cta-band-illustrated | 首页推荐位 + 家长区 |
-| footer（奶油色 + 山丘） | `hills.svg` 页脚 |
+| top-nav | 64px 奶油色 sticky 导航，只放品牌 |
+| category-tab | 文字分类标签，选中态用浅色底 |
+| feature-card-* | 游戏卡片（封面承担色彩，卡片本身保持中性） |
+| badge-pill | 推荐角标、适龄/分类 |
+| footer | 单行版权信息 |
 
 ## 有意的调整
 
-- **粉色/珊瑚色卡片上的文字改为深墨色**：#ff4d8b 上的白字对比度约 3.1:1，对儿童和弱视用户偏低；改成近黑墨色后对比度 > 5.5:1，同时保留色块冲击力。
-- **没有使用官方的 3D claymation 插画**：那是 Clay 的定制资产。这里用原创 SVG 小怪兽、山丘、贴纸来延续“手工黏土”的气质。
-- **Baloo 2 代替 Plain Black**：Plain Black 为商业授权字体；Baloo 2 圆润且可免费自托管。
-- 为了儿童可读性，正文比原规范略大（15–17px），触控目标不小于 44px。
+- **不做营销型 hero**：Clay 的大标题 + 3D 插画适合品牌站，但会把游戏推到首屏之外；这里只保留品牌 logo，游戏网格直接开始。
+- **卡片从“高饱和整卡”改为“中性卡 + 糖果色封面”**：9 张彩色卡片同屏会互相争夺注意力，中性底能让封面和标题成为唯一焦点。
+- **粉色/珊瑚色上的文字用深墨色**：保证可读性。
+- **不引入官方 3D claymation 资产**：用原创 SVG 小怪兽和游戏封面延续手工感。
+- **移动端**：分类换行展示（不隐藏），卡片单列，隐藏次要按钮文字。
 
 ## 无障碍
 
-- 所有交互元素保留 `:focus-visible` 轮廓。
-- 支持 `prefers-reduced-motion`，关闭漂浮、入场动画。
-- 游戏 iframe 有 `title`，卡片链接有 `aria-label`，分区有 `aria-labelledby`。
-- 颜色不是唯一信息载体：分类、适龄、推荐都有文字标签。
+- 所有交互元素有 `:focus-visible` 轮廓；卡片链接有 `aria-label`。
+- 支持 `prefers-reduced-motion`，关闭入场动画。
+- 分类是按钮组，屏幕阅读器可读；图标仅作装饰时 `aria-hidden`。
+- 颜色不是唯一信息：推荐、适龄、分类都有文字。

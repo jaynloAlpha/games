@@ -20,145 +20,46 @@
     <div class="container nav-inner">
       <a class="brand" href="/" aria-label="{{SITE_TITLE}} 首页">
         <span class="brand-mark"><img src="/assets/img/favicon.svg" alt="" width="36" height="36"></span>
-        <span class="brand-text">
-          <strong>{{SITE_TITLE}}</strong>
-          <small>{{SITE_TAGLINE}}</small>
-        </span>
+        <span class="brand-text"><strong>{{SITE_TITLE}}</strong></span>
       </a>
-      <nav class="nav-links" aria-label="主导航">
-        <a class="nav-link" href="#games">全部游戏</a>
-        <a class="nav-link" href="#parents">给家长</a>
-      </nav>
     </div>
   </header>
 
   <main id="main">
-    <section class="hero container" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <span class="eyebrow"><span class="dot" aria-hidden="true"></span>每周上新 · 打开就能玩</span>
-        <h1 id="hero-title">小手一点，<br><span class="marker">快乐冒泡</span>。</h1>
-        <p class="lead">{{SITE_DESC}}</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary btn-lg" href="#games">
-            开始挑选
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <a class="btn btn-ghost btn-lg" href="#parents">给家长的话</a>
-        </div>
-        <dl class="hero-stats">
-          <div>
-            <dt>游戏总数</dt>
-            <dd id="statGames">—</dd>
-          </div>
-          <div>
-            <dt>适合年龄</dt>
-            <dd>3–10 岁</dd>
-          </div>
-          <div>
-            <dt>广告 · 注册</dt>
-            <dd>都不需要</dd>
-          </div>
-        </dl>
-      </div>
-      <div class="hero-art">
-        <div class="clay-card-cream">
-          <img class="mascot" src="/assets/img/mascot.svg" alt="黏土小怪兽泥泥" width="430" height="430" decoding="async">
-          <span class="sticker sticker-star" aria-hidden="true">⭐</span>
-          <span class="sticker sticker-heart" aria-hidden="true">💖</span>
-          <span class="sticker sticker-note">今天玩什么？</span>
-        </div>
-      </div>
-    </section>
+    <h1 class="sr-only">{{SITE_TITLE}}</h1>
 
-    <section class="section container" id="games" aria-labelledby="games-title">
-      <div class="section-head">
-        <div>
-          <p class="section-kicker">Playground</p>
-          <h2 class="display-md" id="games-title">挑一个，马上开玩</h2>
+    <section class="browse container" id="games" aria-label="游戏列表">
+      <div class="chips" id="categoryChips" role="group" aria-label="按分类筛选"></div>
+
+      <div class="grid" id="gameGrid">
+        <div class="game-card is-skeleton" aria-hidden="true">
+          <div class="game-cover"></div>
+          <div class="game-body"><span class="skeleton-line w60"></span><span class="skeleton-line w90"></span><span class="skeleton-line w40"></span></div>
         </div>
-        <div class="search">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          <input id="search" type="search" placeholder="搜游戏名字、标签…" aria-label="搜索游戏" autocomplete="off">
+        <div class="game-card is-skeleton" aria-hidden="true">
+          <div class="game-cover"></div>
+          <div class="game-body"><span class="skeleton-line w50"></span><span class="skeleton-line w80"></span><span class="skeleton-line w30"></span></div>
+        </div>
+        <div class="game-card is-skeleton" aria-hidden="true">
+          <div class="game-cover"></div>
+          <div class="game-body"><span class="skeleton-line w70"></span><span class="skeleton-line w85"></span><span class="skeleton-line w35"></span></div>
         </div>
       </div>
-
-      <div class="filters">
-        <div class="chips" id="categoryChips" role="group" aria-label="按分类筛选"></div>
-        <label class="sort">
-          排序
-          <select id="sort">
-            <option value="curated">推荐顺序</option>
-            <option value="new">最近更新</option>
-            <option value="name">名字</option>
-          </select>
-        </label>
-      </div>
-
-      <p class="result-count" id="resultCount" aria-live="polite"></p>
-      <div id="featuredSlot"></div>
-      <div class="grid" id="gameGrid"></div>
 
       <div class="empty-state" id="emptyState" hidden>
-        <img src="/assets/img/mascot.svg" alt="" width="110" height="110">
-        <h3>还没有游戏上架</h3>
-        <p>在 <code>games/</code> 下新建一个文件夹，放进 <code>game.json</code> 和 <code>index.html</code>，这里就会出现一张卡片。</p>
-        <p class="empty-hint">开发时保存后约 10 秒自动刷新，线上重新部署即可。</p>
+        <img src="/assets/img/mascot.svg" alt="" width="80" height="80">
+        <p>还没有游戏。把游戏放进 <code>games/</code> 目录，刷新页面就会出现。</p>
       </div>
 
       <noscript>
-        <p class="result-count">浏览游戏需要开启 JavaScript。</p>
+        <p class="empty-state">浏览游戏需要开启 JavaScript。</p>
       </noscript>
-    </section>
-
-    <section class="container parents-band" id="parents" aria-labelledby="parents-title">
-      <div class="parents-head">
-        <div>
-          <p class="section-kicker">For grown-ups</p>
-          <h2 class="display-md" id="parents-title">给家长的一句话</h2>
-        </div>
-        <p>这里没有广告、没有充值、也没有账号。游戏都是家里人手写上传的，孩子打开网页就能玩，关掉就结束。</p>
-      </div>
-      <div class="parents-grid">
-        <article class="parent-card accent-lavender">
-          <span class="emoji" aria-hidden="true">🫧</span>
-          <h3>不用注册</h3>
-          <p>点开即玩，不收集名字、手机号和邮箱。关掉页面，什么也不留下。</p>
-        </article>
-        <article class="parent-card accent-peach">
-          <span class="emoji" aria-hidden="true">🚫</span>
-          <h3>没有广告</h3>
-          <p>没有弹窗、没有内购、没有跳转。孩子看到的每一屏都由家里人准备。</p>
-        </article>
-        <article class="parent-card accent-mint">
-          <span class="emoji" aria-hidden="true">⏳</span>
-          <h3>玩多久你说了算</h3>
-          <p>平台不设签到和每日任务，不诱导久留。约定好时间，收走设备就好。</p>
-        </article>
-      </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <img class="footer-hills" src="/assets/img/hills.svg" alt="" aria-hidden="true">
     <div class="container footer-inner">
-      <div class="footer-brand">
-        <a class="brand" href="/">
-          <span class="brand-mark"><img src="/assets/img/favicon.svg" alt="" width="36" height="36"></span>
-          <span class="brand-text">
-            <strong>{{SITE_TITLE}}</strong>
-            <small>{{SITE_TAGLINE}}</small>
-          </span>
-        </a>
-        <p>{{SITE_DESC}}</p>
-      </div>
-      <nav class="footer-links" aria-label="页脚导航">
-        <a href="#games">全部游戏</a>
-        <a href="#parents">给家长</a>
-      </nav>
-      <div class="footer-note">
-        <span>{{FOOTER_NOTE}}</span>
-        <span>© {{YEAR}} {{SITE_TITLE}}</span>
-      </div>
+      <span>© {{YEAR}} {{SITE_TITLE}}</span>
     </div>
   </footer>
 
