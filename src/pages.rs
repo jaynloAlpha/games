@@ -86,7 +86,7 @@ fn site_pairs(site: &SiteSettings) -> Vec<(String, String)> {
         ("{{YEAR}}".into(), util::current_year().to_string()),
         (
             "{{ASSET_VERSION}}".into(),
-            env!("CARGO_PKG_VERSION").to_string(),
+            env!("CLAY_ASSET_VERSION").to_string(),
         ),
     ]
 }

@@ -23,7 +23,7 @@
         <a class="btn btn-primary" href="/">回到乐园</a>
       </div>`;
     if (loading) loading.remove();
-    playSub.textContent = "没能加载这个游戏";
+    if (playSub) playSub.textContent = "没能加载这个游戏";
   }
 
   function startGame() {
@@ -43,29 +43,34 @@
     frame.src = `${gameUrl}?r=${Date.now()}`;
   }
 
-  fullscreenBtn.addEventListener("click", async () => {
-    if (!document.fullscreenElement) {
-      try {
-        await stage.requestFullscreen();
-      } catch {
-        toast("这个浏览器不支持全屏", "error");
+  if (fullscreenBtn) {
+    fullscreenBtn.addEventListener("click", async () => {
+      if (!document.fullscreenElement) {
+        try {
+          await stage.requestFullscreen();
+        } catch {
+          toast("这个浏览器不支持全屏", "error");
+        }
+      } else {
+        await document.exitFullscreen();
       }
-    } else {
-      await document.exitFullscreen();
-    }
-  });
+    });
+  }
 
   document.addEventListener("fullscreenchange", () => {
     const isFull = Boolean(document.fullscreenElement);
-    fullscreenBtn.querySelector(".label").textContent = isFull ? "退出全屏" : "全屏";
+    const label = fullscreenBtn && fullscreenBtn.querySelector(".label");
+    if (label) label.textContent = isFull ? "退出全屏" : "全屏";
   });
 
-  restartBtn.addEventListener("click", restartGame);
+  if (restartBtn) restartBtn.addEventListener("click", restartGame);
 
   (async function boot() {
     try {
       game = await api(`/api/games/${encodeURIComponent(slug)}`);
-      playSub.textContent = [game.category, game.age].filter(Boolean).join(" · ");
+      if (playSub) {
+        playSub.textContent = [game.category, game.age].filter(Boolean).join(" · ");
+      }
       startGame();
     } catch (error) {
       showError(

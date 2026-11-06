@@ -22,6 +22,9 @@ pub async fn embedded(Path(path): Path<String>) -> Response {
     };
     let cache = if relative.starts_with("fonts/") {
         "public, max-age=31536000, immutable"
+    } else if relative.ends_with(".js") || relative.ends_with(".css") {
+        // HTML 里的 URL 带内容指纹，可以放心长缓存。
+        "public, max-age=31536000, immutable"
     } else {
         "public, max-age=3600"
     };
