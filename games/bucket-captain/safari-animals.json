@@ -1,0 +1,92 @@
+[
+  {
+    "name": "大熊猫",
+    "result": 21,
+    "action": "safari",
+    "layout": "four",
+    "celebrate": "大熊猫拼好啦！点它打个招呼！",
+    "playText": "黑眼圈，圆耳朵，我是爱吃竹子的大熊猫！",
+    "asset": "panda"
+  },
+  {
+    "name": "白虎",
+    "result": 22,
+    "action": "safari",
+    "layout": "three",
+    "celebrate": "白虎拼好啦！点它打个招呼！",
+    "playText": "我的白色皮毛上，有黑色的条纹！",
+    "asset": "white-tiger"
+  },
+  {
+    "name": "非洲狮",
+    "result": 23,
+    "action": "safari",
+    "layout": "four",
+    "celebrate": "非洲狮拼好啦！点它打个招呼！",
+    "playText": "看看我的大鬃毛！我是非洲狮！",
+    "asset": "lion"
+  },
+  {
+    "name": "亚洲象",
+    "result": 24,
+    "action": "safari",
+    "layout": "three",
+    "celebrate": "亚洲象拼好啦！点它打个招呼！",
+    "playText": "我的长鼻子，能帮我喝水和拿东西！",
+    "asset": "elephant"
+  },
+  {
+    "name": "白犀牛",
+    "result": 25,
+    "action": "safari",
+    "layout": "split",
+    "celebrate": "白犀牛拼好啦！点它打个招呼！",
+    "playText": "我的鼻子上有角，嘴巴宽宽的！",
+    "asset": "rhino"
+  },
+  {
+    "name": "河马",
+    "result": 26,
+    "action": "safari",
+    "layout": "diagonal",
+    "celebrate": "河马拼好啦！点它打个招呼！",
+    "playText": "大嘴巴，小耳朵，我是河马！",
+    "asset": "hippo"
+  },
+  {
+    "name": "大赤袋鼠",
+    "result": 27,
+    "action": "safari",
+    "layout": "four",
+    "celebrate": "大赤袋鼠拼好啦！点它打个招呼！",
+    "playText": "我的后腿很有力，蹦蹦跳跳真开心！",
+    "asset": "kangaroo"
+  },
+  {
+    "name": "鸵鸟",
+    "result": 28,
+    "action": "safari",
+    "layout": "split",
+    "celebrate": "鸵鸟拼好啦！点它打个招呼！",
+    "playText": "我的腿长长的，跑得可快啦！",
+    "asset": "ostrich"
+  },
+  {
+    "name": "川金丝猴",
+    "result": 29,
+    "action": "safari",
+    "layout": "three",
+    "celebrate": "川金丝猴拼好啦！点它打个招呼！",
+    "playText": "金色的毛，蓝蓝的脸，我是川金丝猴！",
+    "asset": "golden-monkey"
+  },
+  {
+    "name": "黑猩猩",
+    "result": 30,
+    "action": "safari",
+    "layout": "four",
+    "celebrate": "黑猩猩拼好啦！点它打个招呼！",
+    "playText": "长长的手臂，我是聪明的黑猩猩！",
+    "asset": "chimpanzee"
+  }
+]
