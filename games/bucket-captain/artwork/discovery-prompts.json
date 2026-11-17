@@ -1,0 +1,221 @@
+[
+  {
+    "asset": "apple",
+    "tool": "built-in image generation",
+    "prompt": "Create one game-ready preschool jigsaw puzzle artwork: a single RED APPLE with a short brown stem and one green leaf. Charming premium handmade polymer-clay / soft plasticine 3D children's toy aesthetic, softly rounded forms, subtly tactile matte surface, rich warm red, gentle studio light from upper left. Recognizable natural apple shape, no face, no arms, no extra props. Three-quarter front view, entire subject centered in a square canvas filling about 85% of canvas, comfortable transparent padding on all sides. One isolated object on a genuinely transparent background, RGBA alpha, NO background, NO floor, NO cast shadow outside the object, NO checkerboard, NO border, NO text or labels. Crisp silhouette and interesting sculpted detail that remains readable when divided into 4 to 8 jigsaw pieces. Output only the single apple artwork.",
+    "sourceSha256": "293830d219fca219cdb697528a8faf40d1191f5514a33e3d485d8ce954452f66",
+    "output": "assets/puzzle-apple.png"
+  },
+  {
+    "asset": "banana",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: a curved ripe yellow banana with brown tips, a broad thick recognizable form angled diagonally, lightly sculpted peel ridges. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "1eaa0bd2218992b6cfef179c91aae6b816f62c08717f6e46fe8f713fdb7c4d45",
+    "output": "assets/puzzle-banana.png"
+  },
+  {
+    "asset": "strawberry",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: a ripe red strawberry with a leafy green crown and little golden seed dimples, plump recognizable natural form. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "d8fe9c56f828316ddd4253adc391191b765e9cf1314eeb7fafe16e97862d6a1c",
+    "output": "assets/puzzle-strawberry.png"
+  },
+  {
+    "asset": "watermelon",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: one thick triangular watermelon slice with red flesh, black seeds and a green-and-white rind, rounded clay edges, no other fruit. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "ff0402932940cbc484f82e4b0050e9566ae6cce827fc3d4bf10246fe0cae4e1c",
+    "output": "assets/puzzle-watermelon.png"
+  },
+  {
+    "asset": "pineapple",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: one ripe golden pineapple with a green spiky leaf crown, a friendly rounded oval body with a clear diamond skin pattern. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "5088fd20619d68cb393cdd480e60a5f9fe33256e64ea9aa8dd300cbe7c906aaf",
+    "output": "assets/puzzle-pineapple.png"
+  },
+  {
+    "asset": "backpack",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: a child's turquoise backpack with coral front pocket, a yellow zipper pull, two visible padded shoulder straps and a top carry handle, three-quarter view. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "fc399f1c9eac724366e72149304238d7ca885b1a36d236eb66b3581da5346bbb",
+    "output": "assets/puzzle-backpack.png"
+  },
+  {
+    "asset": "umbrella",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: one fully opened rainbow-panel umbrella, broad rounded canopy, visible short thick shaft and curved yellow handle below it, compact full silhouette. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "e5a2e7722ed5fe2e7191f48c23b7f2f1add80ddc5597089da7d84fb9f55d972a",
+    "output": "assets/puzzle-umbrella.png"
+  },
+  {
+    "asset": "alarm-clock",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: one cheerful mint-green twin-bell alarm clock with two coral bells, a cream round clock face showing two hands and simple hour tick marks (no numerals), little feet and a top handle, three-quarter front view. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "aea6551c9e9f2dd3d04119057eafba4a92d949508b5fa0f0b60528313edd31ba",
+    "output": "assets/puzzle-alarm-clock.png"
+  },
+  {
+    "asset": "toothbrush",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: one child's thick blue toothbrush with a coral textured grip, a clearly visible oval white brush head and neat turquoise bristle tufts, angled diagonally across the frame, substantial rounded handle. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "d327380d1aee43748dd3d83fbf2bde40303be70362091d892a7f894ad368c758",
+    "output": "assets/puzzle-toothbrush.png"
+  },
+  {
+    "asset": "sneaker",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: one child's orange and turquoise sports sneaker with cream laces, several visible eyelets, a yellow heel pull tab, a thick textured white sole, three-quarter side view. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "83bbec16a21cc4de1a89724ed29271780612e5de94c75f25b1b0002ed74ebe19",
+    "output": "assets/puzzle-sneaker.png"
+  },
+  {
+    "asset": "excavator",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: a yellow tracked excavator with a clearly articulated boom and bucket, turquoise cab windows and dark grey caterpillar tracks, bucket lowered beside the tracks, compact three-quarter side view. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "c4758f394e32a05f8403dae92dbfb8e1e4c6b4d9ffb344af7015af4a93813bf4",
+    "output": "assets/puzzle-excavator.png"
+  },
+  {
+    "asset": "bulldozer",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: a sturdy yellow bulldozer with two dark caterpillar tracks, a broad curved silver front blade, green-blue cab windows, compact three-quarter front-side view. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "95b242dc3ad50ab4d17a69fe010939a29119041c14e3ecae7431562a27758b22",
+    "output": "assets/puzzle-bulldozer.png"
+  },
+  {
+    "asset": "road-roller",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: a vivid orange road roller with one huge silver cylindrical front drum and large black rear tires, small turquoise windowed cab, three-quarter side view. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "64cd9abb95b7d7cfad87d57531f8c45888d212a5df5d26b928800034b2b468f5",
+    "output": "assets/puzzle-road-roller.png"
+  },
+  {
+    "asset": "cement-mixer",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: a blue and orange concrete mixer truck with a large white-and-orange rotating mixer drum, three axles, turquoise cab windows, rear discharge chute visible, compact three-quarter side view. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "31ce1cb432411eec5865b7aeff404be641dfa69d78298ad5168f5c64a823701e",
+    "output": "assets/puzzle-cement-mixer.png"
+  },
+  {
+    "asset": "ladder-fire-engine",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: a red ladder fire engine with a folded articulated aerial ladder and rescue basket above the roof, blue emergency lamps and visible side equipment panels, no letters or logos, compact three-quarter side view. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "ecee2501188b0e624ddb405a8ea633a1f8cb7a49f7b6e192bb5c9d3b8b82120a",
+    "output": "assets/puzzle-ladder-fire-engine.png"
+  },
+  {
+    "asset": "ambulance",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: a friendly white and turquoise ambulance van with an orange horizontal stripe, blue emergency lamps, dark rubber wheels and visible rear doors in three-quarter side view, no letters, no cross logos. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "faeab037310ea1642009bb1269624481c4f19b4635f3dbc159c757d7fd682c20",
+    "output": "assets/puzzle-ambulance.png"
+  },
+  {
+    "asset": "high-speed-train",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: a compact two-car modern white and blue high-speed train with a streamlined pointed cab, a row of dark turquoise windows, visible bogies and wheels, compact three-quarter side view, no track base. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "db0122c03b86d1941c3ae942a35663b11b3786fa198dde2ee09c2baa58b1280e",
+    "output": "assets/puzzle-high-speed-train.png"
+  },
+  {
+    "asset": "helicopter",
+    "tool": "built-in image generation",
+    "prompt": "A single small teal-green toy passenger helicopter, with cream skids, a yellow tail, grey four-blade rotor, a dark blue windshield and small cabin windows. Rounded handmade polymer-clay miniature, simple soft studio lighting, no emitted light. Entire helicopter, rotor blades, tail rotor and skids fully visible with clear margins in a square composition. Absolutely isolated cutout on a genuinely TRANSPARENT BACKGROUND, like a clean PNG sticker. No shadow, no halo, no glow, no gradients outside the object, no colored fog, no white backdrop, no floor, no scenery. Do not draw puzzle cuts or text. Keep all surfaces matte and opaque; keep every gap between the skids, body, rotor blades and tail fully transparent. This is an asset for a children's clay game.",
+    "sourceSha256": "8ec9b36248dfd920917b387af149e605e132a24a019a2a35b78cb768faa75fbc",
+    "output": "assets/puzzle-helicopter.png",
+    "previousPrompts": [
+      "Create ONE finished educational game collectible artwork: a compact red and yellow civilian rescue helicopter with a turquoise cockpit, landing skids, a sturdy main rotor and a small tail rotor, three-quarter side view, all blades fully within frame. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature."
+    ]
+  },
+  {
+    "asset": "hot-air-balloon",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: one colorful striped hot-air balloon with a large rounded coral-yellow-turquoise balloon envelope, a small wicker basket attached underneath with four thick visible ropes, entire balloon and basket visible. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "c91a92fae6063e123fa5aee3ba642a0e812895518f889eca8a048812cc502077",
+    "output": "assets/puzzle-hot-air-balloon.png"
+  },
+  {
+    "asset": "sailboat",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: one small sailboat with a turquoise curved hull, wooden mast, two broad triangular cream-and-coral sails, a small cockpit and rudder, three-quarter side view, no water or waves. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "45fcfc43f56b5ab25a9d72a87111c49f136ac87d7cd025befcf85a2304fbfc3d",
+    "output": "assets/puzzle-sailboat.png"
+  },
+  {
+    "asset": "bicycle",
+    "tool": "built-in image generation",
+    "prompt": "Clean transparent-background extraction of the attached clay object. Preserve the object, all its structural parts, colors, proportions and clay texture. Completely REMOVE ALL residual haze, glow, blurred shadow, dusty colored pixels and translucent background around the object. Every pixel outside the true physical object must have alpha exactly zero. All openings between parts, including wheel spokes, frame gaps, hoses and rotor gaps, must be clear transparent holes. Keep normal antialiasing only at the immediate crisp silhouette edge, NOT a wide feathered halo. Do not add or repaint a background, floor, frame, label, border, scene or checkerboard. Output a single cleanly isolated object with genuine RGBA transparency and clear margins.",
+    "sourceSha256": "69032ba59712f4acae3853d9d373d377fe6cc45d09c449a6de2b470624064ed1",
+    "output": "assets/puzzle-bicycle.png",
+    "previousPrompts": [
+      "Create ONE finished educational game collectible artwork: one child's turquoise bicycle with two large wheels, visible pedals and chain guard, yellow saddle, coral handlebar grips, no training wheels, compact three-quarter side view. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature."
+    ]
+  },
+  {
+    "asset": "traffic-light",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: one compact upright road traffic signal with a dark grey rounded rectangular housing, exactly THREE circular lights in a vertical line: red at top, amber in middle, green at bottom; a short thick grey pole and a small flat weighted foot, no faces. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "1a0350b6afaacf6bc50a3c98abdc8725ad6df9845ce6900a1be3d5a06f9aeebd",
+    "output": "assets/puzzle-traffic-light.png"
+  },
+  {
+    "asset": "fire-extinguisher",
+    "tool": "built-in image generation",
+    "prompt": "Clean transparent-background extraction of the attached clay object. Preserve the object, all its structural parts, colors, proportions and clay texture. Completely REMOVE ALL residual haze, glow, blurred shadow, dusty colored pixels and translucent background around the object. Every pixel outside the true physical object must have alpha exactly zero. All openings between parts, including wheel spokes, frame gaps, hoses and rotor gaps, must be clear transparent holes. Keep normal antialiasing only at the immediate crisp silhouette edge, NOT a wide feathered halo. Do not add or repaint a background, floor, frame, label, border, scene or checkerboard. Output a single cleanly isolated object with genuine RGBA transparency and clear margins.",
+    "sourceSha256": "76760ca88c3b42c7d4d751a44c3462c7cb70ee8156524544bac8937592ae08c5",
+    "output": "assets/puzzle-fire-extinguisher.png",
+    "previousPrompts": [
+      "Create ONE finished educational game collectible artwork: one recognizable red fire extinguisher with a black squeeze handle, small pressure gauge, a curved black hose clipped beside its cylinder, grey nozzle and a simple blank cream instruction-label panel without markings, entire cylinder visible. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature."
+    ]
+  },
+  {
+    "asset": "microscope",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: one recognizable compact laboratory microscope with a cream C-shaped arm, turquoise base, black eyepiece tube, three objective lenses, a small specimen stage and a large focusing knob, three-quarter side view. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "0cb588f552c1daf4550fd5badb1f258273e1f193b7c1a4b847e6cafe991e8067",
+    "output": "assets/puzzle-microscope.png"
+  },
+  {
+    "asset": "telescope",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: one recognizable astronomical telescope with a turquoise main optical tube, orange lens rim and black eyepiece, a small finder scope, mounted on a compact chunky wooden three-legged tripod, angled upward moderately, entire tripod and tube visible. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "901ffcf783da2430b61406aaf028bbf34f7c1186c47d6af47c1fe67a36cc08fa",
+    "output": "assets/puzzle-telescope.png"
+  },
+  {
+    "asset": "wind-turbine",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: one recognizable modern wind turbine with exactly THREE broad white blades, a rounded turquoise central nacelle, a tall tapering cream tower and a small green circular foot. Compact proportions, all three blade tips fully within frame; not a traditional windmill house. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "b9d5f0d7f45b96a7597743d8480aad0347ee8714d5ff891ee0c4d0311e0de121",
+    "output": "assets/puzzle-wind-turbine.png"
+  },
+  {
+    "asset": "bee",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: one friendly recognizable honey bee with a fuzzy-looking sculpted yellow-and-black striped body, exactly SIX small legs, two antennae and two visible pairs of translucent pale blue wings, black bead eyes, no human arms, hovering in three-quarter view. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "2bef61e45815ea2b18cd70e4cf1c3f3d8ca648e565ebc18c6a6b19373c71ee1f",
+    "output": "assets/puzzle-bee.png"
+  },
+  {
+    "asset": "snail",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: one friendly garden snail with a large orange and cream spiral shell, a mint-green soft body, a pair of long upper eyestalks and a pair of short lower feelers, side three-quarter view, no leaves or scenery. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "eea6845aa7e09308b8e467357253e43c908ee1cfa2927f5da74e599eb8eb1ba5",
+    "output": "assets/puzzle-snail.png"
+  },
+  {
+    "asset": "sunflower",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: one sunflower plant with a single large yellow-petaled flower head, a brown textured seed-disc center, a short thick green stem and two broad green leaves, no vase, no soil, no pot, one coherent complete plant. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "7624c6a6433c09995ad57532f136ca60a6ec5fa526787b528a898218568bba8a",
+    "output": "assets/puzzle-sunflower.png"
+  },
+  {
+    "asset": "turtle",
+    "tool": "built-in image generation",
+    "prompt": "Create ONE finished educational game collectible artwork: one friendly small pond turtle with an olive-green domed shell showing clear geometric scutes, a yellow underside, exactly four short legs, a small tail and a green head with bead eyes, three-quarter side view, no water or scenery. A premium handmade polymer-clay / soft plasticine 3D miniature for a warm clay garden children's game. Rounded child-friendly forms but clear accurate recognizable structure and distinct functional parts. Tactile matte clay, cheerful balanced colors, soft light from upper left, crisp sculpted detail. Entire subject fully visible, centered, occupying about 82% of a square canvas with clear padding. GENUINELY TRANSPARENT RGBA BACKGROUND. No scenery, floor, external shadow, base plate (unless structurally necessary), lettering, labels, borders, checkerboard, arbitrary face or limbs. IMPORTANT: continuous unbroken surfaces; do NOT draw jigsaw cuts, puzzle seams, panel-piece outlines or a puzzle board. This is complete artwork that will be cut by software later. One coherent object only. Not a flat icon or vector. Output only the isolated clay miniature.",
+    "sourceSha256": "d72ad2620b6d5a378db6935deda9b13cde94c3c22779f1b032476f4dff4fb793",
+    "output": "assets/puzzle-turtle.png"
+  }
+]
