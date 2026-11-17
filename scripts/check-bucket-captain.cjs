@@ -9,6 +9,7 @@ browser=await pw[engine].launch({headless:true,...(engine==='chromium'&&process.
 const context=await browser.newContext({viewport:{width:1024,height:768},hasTouch:true,deviceScaleFactor:2});const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
 await page.goto('http://127.0.0.1:'+port);await page.waitForFunction(()=>window.BucketCaptain&&BucketCaptain.getState().phase==='assemble');
 const state=()=>page.evaluate(()=>BucketCaptain.getState());
+if(process.env.BUCKET_AUDIO_DIAGNOSTIC){await page.click('#hint');await page.waitForTimeout(1000);console.log(await page.evaluate(()=>({contextType:typeof AudioContext,audio:BucketCaptain.getAudioState()})));return;}
 if(process.env.BUCKET_TOUCH_ONLY){
  const cdp=await context.newCDPSession(page);const source=await page.locator('[data-piece="0"]').boundingBox(),board=await page.locator('#assembly').boundingBox();const x=source.x+source.width/2,y=source.y+source.height/2;
  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y,id:1}]});assert.equal((await state()).dragging,true);
@@ -21,6 +22,20 @@ if(process.env.BUCKET_TOUCH_ONLY){
 async function dragPiece(i,wrong,touch){const source=await page.locator('[data-piece="'+i+'"]').boundingBox(),board=await page.locator('#assembly').boundingBox();const centers=(await state()).pieceCenters,from={x:source.x+source.width/2,y:source.y+source.height/2},to={x:board.x+board.width*centers[wrong?(i+1)%centers.length:i][0],y:board.y+board.height*centers[wrong?(i+1)%centers.length:i][1]};
  if(touch){await page.locator('[data-piece="'+i+'"]').dispatchEvent('touchstart',{touches:[{identifier:5,clientX:from.x,clientY:from.y}],changedTouches:[{identifier:5,clientX:from.x,clientY:from.y}]});await page.locator('body').dispatchEvent('touchmove',{touches:[{identifier:5,clientX:to.x,clientY:to.y}],changedTouches:[{identifier:5,clientX:to.x,clientY:to.y}]});await page.locator('body').dispatchEvent('touchend',{touches:[],changedTouches:[{identifier:5,clientX:to.x,clientY:to.y}]});
  }else{await page.mouse.move(from.x,from.y);await page.mouse.down();await page.mouse.move(to.x,to.y,{steps:12});if(!wrong)await page.screenshot({path:out+'/'+engine+'-drag.png'});await page.mouse.up();}}
+if(process.env.BUCKET_SNAP_ONLY){
+ await page.click('#hint');await page.waitForFunction(()=>BucketCaptain.getAudioState().snapReady===4);
+ const count=(await state()).placed.length,before=await page.evaluate(()=>BucketCaptain.getAudioState().snapEvents);
+ await dragPiece(0,true,false);assert.equal(await page.evaluate(()=>BucketCaptain.getAudioState().snapEvents),before,'wrong drop is not rewarded');
+ await dragPiece(0,false,false);let a=await page.evaluate(()=>BucketCaptain.getAudioState());assert.equal(a.snapEvents,before+1);assert.equal(a.musicVolume,.038,'music ducks beneath the snap');assert.ok(a.snapActive>0);assert.equal(await page.locator('#slot-0').evaluate(e=>getComputedStyle(e).animationName),'seat-press');assert.ok(await page.locator('.snap-ring').count()>0);
+ await page.screenshot({path:out+'/'+engine+'-snap-feedback.png'});
+ await page.click('#pause');assert.equal(await page.evaluate(()=>BucketCaptain.getAudioState().snapActive),0,'pause stops short feedback sources');await page.waitForTimeout(100);await page.click('#resume');assert.equal(await page.evaluate(()=>BucketCaptain.getAudioState().snapActive),0,'resume does not replay stale clicks');
+ for(let i=1;i<count;i++)await dragPiece(i,false,false);
+ assert.equal(await page.evaluate(()=>BucketCaptain.getAudioState().snapEvents),before+count);assert.ok(await page.locator('.snap-ring.final').count()>0,'final piece gets a special visual accent');
+ await page.waitForFunction(()=>BucketCaptain.getState().phase==='complete');await page.waitForFunction(()=>BucketCaptain.getAudioState().snapActive===0);assert.ok(await page.locator('#creation').isVisible());
+ await page.click('#pause');await page.click('#sound');await page.click('#restart');const muted=await page.evaluate(()=>BucketCaptain.getAudioState().snapEvents);await dragPiece(0,false,false);assert.equal(await page.evaluate(()=>BucketCaptain.getAudioState().snapEvents),muted,'muting covers new snap palette');assert.equal((await state()).placed[0],true,'mute does not disable feedback or placement');
+ await page.click('#pause');await page.click('#sound');await page.click('#restart');await page.emulateMedia({reducedMotion:'reduce'});await dragPiece(0,false,false);assert.equal(await page.locator('#slot-0').evaluate(e=>getComputedStyle(e).animationName),'none');assert.equal(await page.locator('.snap-ring').first().evaluate(e=>getComputedStyle(e).display),'none');
+ assert.deepEqual(errors,[]);console.log('PASS '+engine+': all 4 clips decoded; snap vs wrong-drop gating; louder layered audio and music duck; press/rebound/ring animation; final accent; pause stops stale sources; mute; reduced motion; no browser errors');return;
+}
 await page.screenshot({path:out+'/'+engine+'-puzzle-landscape.png'});
 const taskCount=await page.evaluate(()=>BucketCaptain.tasks.length);assert.equal(taskCount,19);
 const seenTasks=new Set(),orders=new Set(),pieceCounts=new Set();let previousOrder=null;
