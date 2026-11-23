@@ -1,0 +1,127 @@
+[
+  {
+    "asset": "meadow",
+    "prompt": "A beautiful hand-painted gouache and colored-pencil children's picture-book background for a preschool outdoor science game. Wide 16:10 scene, softly textured warm ivory paper, dusty sage green meadow occupying the lower two thirds, pale blue sky and distant ochre hills in the top third. A whimsical wooden treehouse tucked into the FAR upper-left corner, small wildflowers around the outside edges. The entire middle and lower lawn is EMPTY open negative space for interactive experiments, no paths or props there. Loose confident pencil contours, opaque gouache brush strokes, flat layered cut-paper feel, subtle grain, sophisticated warm storybook palette with coral and mustard accents. NO 3D, NO clay, NO plastic, NO realistic rendering, no text, no UI, no people, no animals, no ramp, no ball. Calm inviting daylight, landscape composition.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "captain",
+    "prompt": "Use the attached image ONLY as a character identity reference. Create a SINGLE full-body illustrated character, not three poses: the same smiling East Asian preschool girl with straight black bangs, short hair, a little cream upturned bucket on her head, a pale yellow star-pattern shirt, navy shorts and cream shoes. She stands facing slightly right and points invitingly toward an experiment. Transform completely into a hand-painted gouache and colored-pencil children's picture-book illustration: flat layered color, visible paper-like brush texture within painted areas, warm expressive pencil contours, charming simplified cartoon face retaining her bangs and smile. No photorealism, no 3D or clay. One character, entire body in frame, clear padding, genuinely transparent RGBA background, no ground, no shadow cloud, no scenery, no text. This is a cutout for the warm illustrated science meadow game.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "bear",
+    "prompt": "One friendly little brown bear sitting and watching an experiment, full body three-quarter front view, paws resting at tummy, delighted curious expression. Hand-painted gouache and colored-pencil children's picture book illustration, warm ochre and cocoa colors, visible pencil contours and paper texture within the painted bear, flat layered shapes, match an illustrated sunlit meadow. No 3D, no clay, no toy rendering. Entire small bear isolated with padding on genuine transparent RGBA background, no floor or shadow haze, no props, no text.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "ball-red",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A round coral-red wooden ball seen straight-on, a small cream star painted on its front, simple painted highlight; perfect circular silhouette.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "ball-blue",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A round dusty-teal blue wooden ball seen straight-on, a small cream crescent painted on its front, simple painted highlight; perfect circular silhouette.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "ramp-board",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A single long horizontal wooden ramp plank seen in strict SIDE ELEVATION, with a flat perfectly horizontal top edge, warm honey wood grain and slightly worn painted edges. Very wide and thin, aspect ratio about 8 to 1. No supports or slope; the game will rotate this plank.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "bell-goal",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A wooden arch with a big golden hanging bell centered inside, strict front elevation. Two vertical wooden posts, horizontal top crossbar, friendly chunky joinery, a little coral ribbon on top. Bottom of both posts aligned. No ground.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "basket-goal",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A wide shallow wicker catching basket in front elevation, open top, woven honey-colored texture, two small side handles and soft cream lining. Width about twice height. No contents.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "flag",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A short wooden flagpole with a big mustard-yellow triangular flag pointing right, a coral star on the flag, entire pole visible. No base.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "surface-wood",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A wide thin rectangular swatch of smooth honey-colored wooden flooring, viewed from above, crisp straight parallel board grain, frayed paper-like edges, width 4 times height. No perspective.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "surface-felt",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A wide thin rectangular swatch of soft dusty-turquoise felt fabric, viewed from above, clearly visible fuzzy woven fibers, slightly soft irregular edges, width 4 times height. No perspective.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "surface-grass",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A wide thin rectangular turf patch, viewed from above, sage-green grass with little distinct blades, soft uneven organic edge, width 4 times height. No dirt block, no perspective.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "launch-button",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A tactile coral-painted wooden round button with an ivory triangular PLAY symbol at center, frontal view. Watercolor edges, hand-painted shading, no words.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "replay-button",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A tactile dusty-teal painted wooden round button with two ivory overlapping rolling-ball silhouettes and one curved replay arrow, frontal view. No words.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "next-button",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A tactile mustard-painted wooden round button with an ivory right-pointing arrow at center, frontal view. No words.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "pause-button",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A tactile sage-green painted wooden round button with two ivory vertical PAUSE bars, frontal view. No words.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "hand-guide",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A small friendly ivory mitten hand with one index finger pointing down, coral cuff, three small painted mustard attention rays above it. Entire object visible, no arm beyond cuff.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "paw-print",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A single coral-red painted bear paw print on transparent paper, one large oval palm pad and four small rounded toe pads, charming imperfect gouache stamp texture. No animal.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "cushion",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A plump upright coral-and-cream striped soft cushion, front elevation, rounded corners, a few hand-painted stitched seams. Tall thin rectangle, width half its height.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "height-handle",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A round honey-colored wooden adjustment knob, two ivory arrows at center pointing up and down, simple hole at the center, front view. No words.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "reward-star",
+    "prompt": "Hand-painted gouache and colored-pencil illustration for a warm preschool science picture-book game. Flat layered shapes, visible paint and paper texture within the object, warm soft outlines, muted mustard, coral, sage and cream palette. ONE isolated object, entirely visible, generous transparent margins, genuine RGBA transparent background, no scene, no floor, no cast shadow or glow, no text, no labels, no numerals. Not 3D or plastic. A single golden-yellow five-pointed reward star sticker, joyful warm gouache brush texture, slightly uneven hand-painted outline, tiny cream gleam painted inside the star. No face, no lettering, no rays or background.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "captain-cheer",
+    "prompt": "Preserve the exact girl's identity, bangs, bucket hat, star shirt, navy shorts and gouache-colored-pencil illustration style. Change her pose to both hands lifted in delighted celebration, eyes happy, a joyful smile. ONE full-body character cutout, entire shoes and hat visible, transparent background. No text or scenery.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "bear-cheer",
+    "prompt": "Preserve this same little brown bear and gouache-colored-pencil style. Change pose to standing up joyfully with both paws lifted and a delighted open smile, celebrating a successful experiment. ONE full-body character isolated on genuinely transparent background with clear margins. No props, no text, no scene.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "fan",
+    "prompt": "One isolated game sprite, genuine transparent RGBA background, no scenery, floor, glow, cast shadow, text or UI. Entire object visible with margins. Flat warm hand-painted gouache and colored pencil children's picture book, textured paint within the object, coral, mustard and muted sage palette, soft pencil contours. Not 3D or clay. A charming small wooden tabletop electric fan, strict side view, round coral safety cage and visible cream propeller facing RIGHT, mustard stand and sage base. Simple chunky silhouette legible at 90 pixels. No wind lines.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "domino",
+    "prompt": "One isolated game sprite, genuine transparent RGBA background, no scenery, floor, glow, cast shadow, text or UI. Entire object visible with margins. Flat warm hand-painted gouache and colored pencil children's picture book, textured paint within the object, coral, mustard and muted sage palette, soft pencil contours. Not 3D or clay. A SINGLE upright chunky rectangular wooden domino toy viewed straight from its broad front, tall aspect ratio 1:2.5, coral red painted face with three large cream dots, mustard wood edges, flat bottom. No other toys.",
+    "tool": "built-in image generation"
+  }
+]
