@@ -30,6 +30,9 @@ for(const [index,level] of levels.entries()){
  assert.equal(level.id,index+1);
  assert.equal(level.group,Math.floor(index/5));
  assert.ok(level.demo.length>0&&level.demo.length<=level.budget);
+ for(const cup of level.cups){
+  assert.ok(level.balls.some(ball=>ball.cup===cup.id),'each basket is a real goal for a ball in level '+level.id);
+ }
  if(level.sheets)for(const stroke of level.demo){
   assert.ok(level.sheets.some(sheet=>stroke.every(([x,y])=>
    x>=sheet.x+8&&x<=sheet.x+sheet.w-8&&y>=sheet.y+8&&y<=sheet.y+sheet.h-8)),
@@ -41,6 +44,7 @@ for(const [index,level] of levels.entries()){
  assert.equal(releases.length,level.balls.length,'each ball is released once');
  for(const ball of level.balls){
   const release=releases.find(event=>event.x===ball.x&&event.y===ball.y);
+  assert.equal(release.time,0,'every ball starts on the launch click in level '+level.id);
   assert.equal(release.impulse||0,Math.hypot(ball.vx||0,ball.vy||0),'only moving starts kick the spring at release');
  }
  assert.equal(run(level,[]).verdict,'retry','a blank sheet should not win level '+level.id);
@@ -81,9 +85,19 @@ for(const id of separateJobs){
  }
 }
 const delayed=run(levels[39],strokes(levels[39],levels[39].demo));
-assert.ok(delayed.events.find(event=>event.kind==='release'&&event.x>512).time>delayed.pressed.ring,'the red bell releases the blue ball');
+assert.ok(delayed.events.find(event=>event.kind==='gate-open').time>delayed.pressed.ring,'the red bell opens the blue ball gate');
 const full=run(levels[48],strokes(levels[48],levels[48].demo));
-assert.ok(full.events.find(event=>event.kind==='release'&&event.x>512).time>Math.max(full.pressed.start,full.pressed.ring),'the late relay waits for both signals');
+assert.ok(full.events.find(event=>event.kind==='gate-open').time>Math.max(full.pressed.start,full.pressed.ring),'the late relay gate waits for both signals');
+const locked=run(levels[19],[]);
+assert.equal(locked.gates[0].progress,0);
+assert.ok(locked.balls[0].body.position.x>620&&locked.balls[0].body.position.x<640&&locked.balls[0].body.speed<.1,'the moving ball comes to rest against an unopened gate');
+const finale=levels[49];
+const startFinale=P.create(finale,strokes(finale,finale.demo));
+while(startFinale.elapsed<420)startFinale.step();
+const yellow=startFinale.balls.find(entry=>entry.spec.id==='yellow');
+assert.ok(yellow.body.position.y>yellow.spec.y&&yellow.body.speed<.1,'the yellow ball falls and rests on the physical shelf');
+assert.equal(startFinale.gates[1].progress,0);
+assert.ok(final.events.find(event=>event.kind==='gate-open'&&event.x===509).time<final.pressed.finalBell,'the yellow ball rings the bell after the shelf slides away');
 
 // Drag variants of the same ramp and hooked ramp across every layout.
 // The first bridge and a few other simple layouts intentionally permit a single ramp.

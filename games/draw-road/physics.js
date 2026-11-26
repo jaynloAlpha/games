@@ -217,11 +217,13 @@
     Composite.add(world,M.Constraint.create({pointA:{x:s.x,y:s.y-s.h/2+7},bodyB:b,pointB:{x:0,y:-s.h/2+7},length:0,stiffness:1,damping:.18}));
    }
   });
-  level.balls.forEach(function(s,i){
+  level.balls.forEach(function(s){
    var b=add(Bodies.circle(s.x,s.y,s.r||16,{density:.0023,restitution:.055,
     friction:.19,frictionStatic:.43,frictionAir:.001,collisionFilter:filter(layers.ball)}),'ball',s);
-   Body.setStatic(b,true);
-   balls.push({body:b,spec:s,index:i,released:false});
+   var velocity={x:s.vx||0,y:s.vy||0};
+   Body.setVelocity(b,velocity);
+   balls.push({body:b,spec:s});
+   emit('release',b,.6,Math.hypot(velocity.x,velocity.y));
   });
   strokes.forEach(function(s,i){
    var body=add(strokeBody(s),'ink',s);
@@ -271,21 +273,13 @@
    if(verdict!=='running')return verdict;
    elapsed+=STEP;
    gates.forEach(function(g){
+    if(g.spec.afterCups&&!balls.every(function(entry){return !entry.spec.cup||settled[entry.spec.id]>240;}))return;
     if(!openSignal(g.spec.by)||g.progress>=1)return;
+    if(g.progress===0)emit('gate-open',g.body,.7);
     g.progress=Math.min(1,g.progress+STEP/365);
-    Body.setPosition(g.body,{x:g.spec.x,y:g.spec.y-(g.spec.lift||g.spec.h+22)*g.progress});
+    var slide=g.spec.slide||{x:0,y:-(g.spec.h+22)};
+    Body.setPosition(g.body,{x:g.spec.x+slide.x*g.progress,y:g.spec.y+slide.y*g.progress});
     if(g.progress===1)Composite.remove(world,g.body);
-   });
-   balls.forEach(function(entry){
-    var b=entry.body,s=entry.spec;
-    var cupsReady=!s.afterCups||balls.every(function(other){return !other.spec.cup||settled[other.spec.id]>240;});
-    if(!entry.released&&cupsReady&&elapsed>=(s.delay===undefined?440:s.delay)&&openSignal(s.by)){
-     entry.released=true;entry.releasedAt=elapsed;
-     Body.setStatic(b,false);
-     var velocity={x:s.vx||0,y:s.vy||0},speed=Math.hypot(velocity.x,velocity.y);
-     Body.setVelocity(b,velocity);
-     emit('release',b,.6,speed);
-    }
    });
    touches=[];
    Engine.update(engine,STEP);
@@ -297,7 +291,7 @@
    });
    var all=balls.map(function(entry){
     var b=entry.body,s=entry.spec;
-    if(!entry.released||!s.cup)return !s.cup&&entry.released;
+    if(!s.cup)return true;
     var cup=cups.find(function(c){return c.id===s.cup;});
     var r=s.r||16;
     var inside=Math.abs(b.position.x-cup.x)<cup.w/2-r*.48&&b.position.y>=cup.y-cup.h-5&&b.position.y<=cup.y+3&&b.speed<2.1;
@@ -306,7 +300,7 @@
    }).every(Boolean);
    var fulfilled=(level.requires||[]).every(function(id){return !!pressed[id];});
    if(all&&fulfilled){verdict='won';emit('win');}
-   else if(balls.some(function(o){return o.released&&o.spec.cup&&out(o.body);})||elapsed>=10800)verdict='retry';
+   else if(balls.some(function(o){return o.spec.cup&&out(o.body);})||elapsed>=10800)verdict='retry';
    return verdict;
   }
   return {step:step,things:things,balls:balls,cups:cups,switches:switches,bells:bells,gates:gates,inks:inks,

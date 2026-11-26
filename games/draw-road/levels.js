@@ -24,7 +24,11 @@
  function add(name,budget,detail){levels.push(build(name,budget,detail));}
  function mirror(data){
   ['walls','balls','cups','pins','gates','bells','switches','toys'].forEach(function(key){
-   (data[key]||[]).forEach(function(s){s.x=1024-s.x;if(s.vx)s.vx=-s.vx;});
+   (data[key]||[]).forEach(function(s){
+    s.x=1024-s.x;
+    if(s.vx)s.vx=-s.vx;
+    if(s.slide)s.slide.x=-s.slide.x;
+   });
   });
   (data.beams||[]).forEach(function(s){s.x1=1024-s.x1;s.x2=1024-s.x2;});
   data.demo=data.demo.map(function(stroke){return stroke.map(function(p){return [1024-p[0],p[1]];});});
@@ -59,7 +63,6 @@
   ];
   var d={beams:beams,walls:[wall(960,443,17,130)],
    balls:[ball(x+75,117,0)],cups:[target(855,490,190)],demo:[[[x,y],[end,tip]]]};
-  if(opts.decoy)d.cups.push(target(x-29,488,110,'decoy'));
   return opts.flip?mirror(d):d;
  }
  function underBox(){
@@ -102,7 +105,7 @@
   var sx=opts.sx||269,sy=opts.sy||392,require='start';
   var d={beams:[floor(sx-86,sx+80,sy+10,opts.felt?'felt':'wood'),rail(440,275,791,402)],
    walls:[wall(974,456,18,158)],switches:[switchAt(require,sx,sy,opts.narrow?56:86,16)],
-   cups:[target(877,493,176)],balls:[Object.assign(ball(477,238,3.1),{by:require})],
+   cups:[target(877,493,176)],balls:[ball(477,238,3.1)],
    gates:[{x:659,y:302,w:22,h:104,by:require}],demo:[]};
   if(opts.rolling){
    d.beams[0]=rail(sx-192,sy-111,sx+84,sy+36,opts.felt?'felt':'wood');
@@ -122,9 +125,6 @@
   layout.beams.push(floor(713,823,220));
   layout.switches.push(Object.assign(switchAt('upper',767,210,66,16),{mass:3.5}));
   layout.demo.push([[734,95],[800,95],[800,159],[734,159],[734,95]]);
-  layout.balls.forEach(function(b){
-   if(b.by==='start')b.by=['start','upper'];
-  });
   (layout.gates||[]).forEach(function(g){
    if(g.by==='start')g.by=['start','upper'];
   });
@@ -181,7 +181,7 @@
    walls:[wall(510,450,17,130)],cups:[target(424,487,152,'redHome'),target(600,487,152,'blueHome')],
    balls:[ball(left,132,0,'redHome','red'),ball(right,132,0,'blueHome','blue')],
    demo:[[[116,290],[377,366]],[[911,290],[655,366]]]};
-  if(opts.asymmetric){d.balls[1].delay=730;d.balls[1].y=94;}
+  if(opts.asymmetric)d.balls[1].y=94;
   if(opts.bell){
    d.balls[0].cup=null;d.bells=[{id:'ring',x:421,y:390,r:26,ball:'red'}];d.requires=['ring'];d.cups.shift();
   }
@@ -209,14 +209,8 @@
   route.balls[0].vx=opts.two?11.25:10;
   d.beams=d.beams.slice(0,opts.lever?0:1).concat(route.beams);
   d.walls=route.walls;d.cups=route.cups;d.balls=route.balls;
-  d.balls[0].by='start';
   d.gates=[{x:712,y:308,w:21,h:103,by:'start'}];
   d.demo=d.demo.concat(route.demo);
-  if(opts.bell){
-   d.balls.push(ball(817,119,0,null,'yellow'));
-   d.balls[1].cup=null;d.balls[1].by='start';d.balls[1].delay=1300;
-   d.bells=[{id:'ring',x:817,y:205,r:22,ball:'yellow'}];d.requires=['ring'];
-  }
   return opts.flip?mirror(d):d;
  }
  function paired(opts){
@@ -225,7 +219,7 @@
   var sw=opts.switchX||509;
   d.switches=[switchAt('start',sw,378,62,15)];
   d.beams.push(floor(sw-48,sw+48,386));
-  d.balls[1].by='start';
+  d.gates=[{x:638,y:345,w:15,h:104,by:'start'}];
   d.demo.push([[sw-31,238],[sw+31,238],[sw+31,298],[sw-31,298],[sw-31,238]]);
   if(opts.ballGate){
    d.switches=[switchAt('start',410,434,64,26,'ball')];
@@ -233,7 +227,8 @@
    d.demo.pop();
   }
   if(opts.final){
-   d.balls.push({id:'yellow',x:509,y:111,r:14,vx:0,by:'start',delay:1600,afterCups:true,cup:null});
+   d.balls.push({id:'yellow',x:509,y:111,r:14,vx:0,cup:null});
+   d.gates.push({x:509,y:159,w:71,h:14,by:'start',afterCups:true,slide:{x:64,y:0}});
    d.bells=[{id:'finalBell',x:509,y:202,r:20,ball:'yellow'}];
    d.requires=['finalBell'];
   }
@@ -241,8 +236,8 @@
  }
  function passesBell(){
   var d=roof({bell:true});
-  d.balls[1].delay=690;
-  d.balls[1].by='ring';
+  d.beams.push(rail(706,350,753,368));
+  d.gates=[{x:749,y:306,w:16,h:125,by:'ring'}];
   return d;
  }
  function warehouse(){
@@ -254,7 +249,6 @@
   var d=bridge([[221,475]],{vx:5.3});
   d.switches=[switchAt('bridgeReady',499,332,34,18)];
   d.gates=[{x:624,y:304,w:20,h:116,by:'bridgeReady'}];
-  d.balls[0].by='bridgeReady';
   return onPaper(d,[paper(162,291,377,83)]);
  }
 
@@ -268,7 +262,7 @@
  add('落球向左转',3,slope({start:209,drop:74,flip:true}));
  add('钻过木箱下面',3,underBox());
  add('走两段折线路',3,onPaper(zigzag(),[paper(125,232,347,125),paper(220,376,434,137)]));
- add('岔路选篮子',2,slope({start:208,drop:82,flip:true,decoy:true}));
+ add('向左送进篮子',2,slope({start:208,drop:82,flip:true}));
 
  add('桌沿挡一挡',3,onPaper(brake({}),[paper(700,279,155,144)]));
  add('接在凹槽里',3,onPaper(cradle(),[paper(523,268,249,152)]));
@@ -303,8 +297,8 @@
  add('两个小篮子',4,onPaper(split({}),[paper(85,240,325,157),paper(622,240,322,157)]));
  add('一笔分两路',3,roof({}));
  add('一颗响铃一颗回家',3,onPaper(split({asymmetric:true,bell:true}),[paper(85,230,322,181),paper(627,230,325,181)]));
- add('开门后两颗球',3,onPaper(paired({ballGate:true}),[paper(87,239,323,157),paper(623,239,324,157)]));
- add('先响铃再放蓝球',2,passesBell());
+ add('红球开门，蓝球过门',3,onPaper(paired({ballGate:true}),[paper(87,239,323,157),paper(623,239,324,157)]));
+ add('红球撞铃抬起蓝球的门',2,passesBell());
 
  add('一笔搭桥兼开锁',1,bridgeLatch());
  add('两笔打开仓库',2,warehouse());
@@ -316,7 +310,7 @@
  add('压下翻板再过沟',3,onPaper(relay({lever:true,two:true}),[paper(311,122,305,70),paper(192,313,241,60),paper(472,363,246,80)]));
  add('从另一边开路',3,onPaper(auxiliary(paired({flip:true,ballGate:true})),[paper(88,238,331,163),paper(606,236,329,167),paper(705,66,122,113)]));
  var bellRoute=paired({bell:true});
- bellRoute.balls[1].by=['start','ring'];
+ bellRoute.gates[0].by=['start','ring'];
  add('分到铃铛和篮子',3,onPaper(bellRoute,[paper(86,239,324,158),paper(621,239,328,158),paper(454,204,109,110)]));
  add('小熊的玩具工坊',3,onPaper(paired({final:true}),[paper(83,245,323,164),paper(624,239,326,169),paper(453,208,112,111)]));
 
@@ -324,11 +318,11 @@
   '在缺口上搭一段路，让红球滚进小熊的篮子。',
   '用有坡度的画线接住落球，把它送往篮子。',
   '让球停在小熊身边的圈里。挡板要站得稳。',
-  '画出会落下或滚动的零件。零件碰到开关，小球就能出发。',
+  '画出会落下或滚动的零件。零件碰到开关，就能打开小球前面的门。',
   '看一看光滑的木板和粗糙的毛毡。让球有足够冲劲，再在目标前停住。',
   '让一笔穿过金色转轴。它会转动，压到开关。',
   '先让机关碰到开关，再想办法把球送到目标。',
-  '两颗球需要自己的路线。篮子旁的颜色小标记表示它在等哪一颗球。',
+  '两颗球需要自己的路线。把小球送到和它同色的篮子。',
   '用下方纸条表示的笔数画好路线，再放球。',
   '看清每个目标，用画的零件安排机关工作的先后。'
  ];
@@ -337,13 +331,15 @@
   5:'在两张不同高度的蓝纸上分别搭桥。',
   8:'木箱把上方堵住了。从木箱下面把球接到右边。',
   9:'接住球，再让它转向左边的篮子。',
-  20:'两张纸上的重物分别按下开关，两把锁都打开才放球。',
+  20:'球会先滚到门前。两张纸上的重物分别按下开关，两把锁都打开才抬门。',
   33:'用转轴压住一个开关，再让另一处的重物按下第二个。',
-  40:'先让红球撞铃，蓝球才会下来。想想一块板怎样把两颗球分开。',
+  39:'两颗球同时落下。让红球经过开关，抬起蓝球前面的门。',
+  40:'两颗球同时落下。红球撞铃后会抬起蓝球前面的门。',
   41:'只用一笔跨过宽沟，桥还要碰到另一端的小开关。',
   42:'在上方按开关，在下方搭桥，让球从纸箱下面过去。',
   48:'让红球走到开关，再在另一块台面打开第二把锁。',
-  49:'用重物开一把锁，红球碰铃解除另一把，蓝球才会出发。'
+  49:'重物按开关、红球碰铃，两把锁都打开后蓝球才能过门。',
+  50:'三颗球同时出发。红球和蓝球进篮后，中间的挡板会抽开，黄球会落下撞铃。'
  };
  levels.forEach(function(level,i){
   level.id=i+1;level.group=Math.floor(i/5);level.tip=specific[level.id]||tips[level.group];

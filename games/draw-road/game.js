@@ -37,7 +37,7 @@
   if(context&&context.state!=='running'&&context.state!=='closed')context.resume().catch(function(){});
  }
  function note(freq,gain,duration,delay,type){
-  if(!context||!sound||paused||context.state!=='running')return;
+  if(!context||!sound||paused||context.state==='closed')return;
   var start=context.currentTime+(delay||0),source=context.createOscillator(),volume=context.createGain();
   source.type=type||'sine';
   source.frequency.setValueAtTime(freq,start);
@@ -178,21 +178,17 @@
   sprite(spec.id==='blue'?'blue-ball':spec.id==='yellow'?'gold-ball':'ball',-r,-r,2*r,2*r);
   ctx.restore();
  }
- function renderLauncher(spec,entry){
+ function renderLauncher(spec){
   var vx=spec.vx||0,vy=spec.vy||0;
   if(!vx&&!vy)return;
   var artSpring=art['spring-launcher'],radius=spec.r||16;
   var power=Math.min(1,Math.hypot(vx,vy)/12);
-  var springX=-radius-61,head=-radius-3,extension=0;
-  var time=entry&&entry.released?world.elapsed-entry.releasedAt:-1;
-  if(time<0&&world){
-   var begins=spec.delay===undefined?440:spec.delay;
-   var charge=Math.max(0,Math.min(1,(world.elapsed-(begins-190))/190));
-   head-=charge*7;
-  }else if(time>=0&&time<240){
+  var springX=-radius-61,head=-radius-10;
+  var time=world?world.elapsed:-1;
+  if(time>=0&&time<240){
    var reach=12+17*power;
-   extension=reach*(time<48?time/48:Math.max(0,1-(time-48)/192));
-   head=-radius+2+extension;
+   var extension=reach*(time<48?time/48:Math.max(0,1-(time-48)/192));
+   head=-radius+2+extension-(time>=48?12*(time-48)/192:0);
   }
   ctx.save();
   ctx.translate(spec.x,spec.y);
@@ -219,6 +215,14 @@
   var dx=b.x2-b.x1,dy=b.y2-b.y1;
   renderBox(b.material==='felt'?'felt':'beam',(b.x1+b.x2)/2,(b.y1+b.y2)/2,Math.hypot(dx,dy),b.w,Math.atan2(dy,dx));
  }
+ function basketSprite(cup){
+  if(level().balls.length===1)return 'basket';
+  var ball=level().balls.find(function(candidate){return candidate.cup===cup.id;});
+  if(!ball)return 'basket';
+  if(ball.id==='red')return 'red-basket';
+  if(ball.id==='blue')return 'blue-basket';
+  return 'basket';
+ }
  function renderCup(cup){
   if(cup.open){
    ctx.save();ctx.setLineDash([8,8]);ctx.strokeStyle='#31796c93';ctx.lineWidth=3;
@@ -226,13 +230,13 @@
    sprite('bear',cup.x-42,cup.y-136,84,108,.95);
    return;
   }
-  var color=cup.id.indexOf('blue')===0?'blue-ball':'ball';
-  sprite('basket',cup.x-cup.w/2,cup.y-cup.h, cup.w,cup.h+15);
-  if(level().cups.length>1&&cup.id!=='decoy')sprite(color,cup.x-11,cup.y+7,22,22);
+  sprite(basketSprite(cup),cup.x-cup.w/2,cup.y-cup.h,cup.w,cup.h+15);
  }
  function foreCup(cup){
-  if(cup.open||!art.basket)return;
-  var img=art.basket,cut=Math.floor(img.height*.65),w=cup.w,h=cup.h+15;
+  if(cup.open)return;
+  var img=art[basketSprite(cup)];
+  if(!img)return;
+  var cut=Math.floor(img.height*.65),w=cup.w,h=cup.h+15;
   ctx.drawImage(img,0,cut,img.width,img.height-cut,cup.x-w/2,cup.y-cup.h+h*(cut/img.height),w,h*(1-cut/img.height));
  }
  function renderSwitch(s){
@@ -245,7 +249,7 @@
   function takesSignal(part){
    return Array.isArray(part.by)?part.by.indexOf(s.id)!==-1:part.by===s.id;
   }
-  var destination=l.gates.find(takesSignal)||l.balls.find(takesSignal);
+  var destination=l.gates.find(takesSignal);
   if(!destination)return;
   var low=Math.max(s.y,destination.y)+28;
   ctx.save();
@@ -259,6 +263,10 @@
   var hit=world&&world.pressed[s.id];
   var shake=hit&&!quietMotion?Math.sin((world.elapsed-hit)/34)*Math.max(0,.19-(world.elapsed-hit)/3900):0;
   renderBox('bell',s.x,s.y-21,62,78,shake);
+ }
+ function renderGate(spec,position){
+  if(spec.w>=spec.h)renderBox('felt',position.x,position.y,spec.w,spec.h);
+  else renderBox('felt',position.x,position.y,spec.h,spec.w,Math.PI/2);
  }
  function renderWin(){
   if(phase!=='won'||quietMotion||displayMs>1050)return;
@@ -287,6 +295,7 @@
    sprite('bear',c.x-54,c.y-c.h-112,108,131);
   }
   l.switches.forEach(renderCord);
+  l.bells.forEach(renderCord);
   l.cups.forEach(renderCup);
   l.beams.forEach(renderBeam);
   l.walls.forEach(function(w){
@@ -295,7 +304,7 @@
   });
   l.switches.forEach(renderSwitch);l.bells.forEach(renderBell);
   if(world){
-   world.gates.forEach(function(g){if(g.progress<1)renderBox('felt',g.body.position.x,g.body.position.y,g.spec.h,g.spec.w,Math.PI/2);});
+   world.gates.forEach(function(g){if(g.progress<1)renderGate(g.spec,g.body.position);});
    world.things.forEach(function(entry){
     if(entry.role==='toy'){
      var s=entry.spec,b=entry.body;renderBox('beam',b.position.x,b.position.y,s.h,s.w,b.angle+Math.PI/2);
@@ -308,13 +317,13 @@
     stroke(ink.stroke.points,ink.stroke.closed,palette[ink.color%palette.length]);
     ctx.restore();
    });
-   world.balls.forEach(function(entry){renderLauncher(entry.spec,entry);renderBall(entry.spec,entry.body);});
+   world.balls.forEach(function(entry){renderLauncher(entry.spec);renderBall(entry.spec,entry.body);});
   }else{
-   l.gates.forEach(function(g){renderBox('felt',g.x,g.y,g.h,g.w,Math.PI/2);});
+   l.gates.forEach(function(g){renderGate(g,g);});
    l.toys.forEach(function(t){renderBox('beam',t.x,t.y,t.h,t.w,Math.PI/2);});
    drafts.forEach(function(d,i){stroke(d.points,d.closed,palette[i%palette.length]);});
    if(drawing)stroke(drawing.points,false,palette[drafts.length%palette.length],.84);
-   l.balls.forEach(function(b){renderLauncher(b,null);renderBall(b,null);});
+   l.balls.forEach(function(b){renderLauncher(b);renderBall(b,null);});
   }
   l.cups.forEach(foreCup);
   l.pins.forEach(function(p){sprite('pin',p.x-17,p.y-17,34,34);});
@@ -371,6 +380,7 @@
   unlock();clearHint();lastKnock=-1000;
   world=P.create(level(),drafts,gameSound);
   phase='playing';
+  lastFrame=performance.now();
   status('开始实验。');
   sync();animate();draw();
  }
@@ -533,6 +543,7 @@
  resize();
  Promise.all(artNames.map(loadArt)).then(function(){
   art['blue-ball']=tint(art.ball,'#2879b7');art['gold-ball']=tint(art.ball,'#dbac2a');
+  art['red-basket']=tint(art.basket,'#c84236');art['blue-basket']=tint(art.basket,'#2879b7');
   ready=true;sync();draw();
  }).catch(function(){status('图片加载失败，请刷新页面重试。');});
  window.DrawRoad={getState:function(){
