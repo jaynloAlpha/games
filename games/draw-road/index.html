@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+ <meta name="theme-color" content="#ffe8c7">
+ <title>画出来的路</title>
+ <link rel="stylesheet" href="game.css">
+</head>
+<body>
+<main id="game" data-theme="workbench" data-phase="setup">
+ <canvas id="scene" aria-label="画布。画一笔，再点小球开始实验"></canvas>
+ <p id="goal" class="sr-only"></p>
+ <p id="status" class="sr-only" role="status" aria-live="polite"></p>
+ <div id="quiet-hint" aria-hidden="true" hidden></div>
+ <button id="pause" class="tab tab-pause" type="button" aria-label="暂停"><span aria-hidden="true">Ⅱ</span></button>
+ <button id="release" class="release" type="button" aria-label="点小球开始实验" aria-describedby="goal"><span aria-hidden="true">▶</span></button>
+ <div id="brush-tools">
+  <button id="undo" class="tab tab-undo" type="button" aria-label="撤销上一笔" hidden><span aria-hidden="true">↶</span></button>
+  <button id="retry" class="tab tab-undo" type="button" aria-label="停止实验，回到画稿" hidden><span aria-hidden="true">↶</span></button>
+  <div id="paper-strips" aria-label="可用笔数" hidden></div>
+ </div>
+ <button id="next" class="tab tab-next" type="button" aria-label="下一关" hidden><span aria-hidden="true">→</span></button>
+ <div id="pause-layer" hidden>
+  <section class="menu" aria-modal="true" role="dialog" aria-labelledby="menu-title">
+   <div class="menu-top">
+    <div><p id="progress"></p><h1 id="menu-title"></h1></div>
+    <button id="resume" class="tab tab-next" type="button" aria-label="继续游戏"><span aria-hidden="true">▶</span></button>
+   </div>
+   <p id="description"></p>
+   <div class="menu-options">
+    <button id="sound" type="button" aria-pressed="true">声音 开</button>
+    <button id="clear" type="button">清空画稿</button>
+   </div>
+   <div id="chapters" aria-label="选择关卡"></div>
+  </section>
+ </div>
+</main>
+<script src="vendor/matter-0.20.0.min.js"></script>
+<script src="physics.js?v=2"></script>
+<script src="levels.js?v=3"></script>
+<script src="game.js?v=2"></script>
+</body>
+</html>

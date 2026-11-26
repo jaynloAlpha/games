@@ -1,0 +1,72 @@
+[
+  {
+    "asset": "workbench",
+    "prompt": "16:10 landscape 2D game backdrop, handmade wax crayon marks, screenprinted cut construction paper and corrugated cardboard, playful modern children's art direction, friendly shapes, gently speckled ivory paper. Leave a huge quiet space in the central 86% and keep decorative objects around perimeter or at the very top. No platforms, no people, no letters, no ball, no UI. A cozy paper toy workshop. Light cream card and pale blue sky from a large paper cut window at top, mint-green pegboard only in top left corner, hints of orange scissors and folded card in upper left. A few scraps in extreme lower corners. Flat milky warm beige on the middle and bottom to make ramps and drawings easy to recognize.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "garden",
+    "prompt": "16:10 landscape 2D game backdrop, handmade wax crayon marks, screenprinted cut construction paper and corrugated cardboard, playful modern children's art direction, friendly shapes, gently speckled ivory paper. Leave a huge quiet space in the central 86% and keep decorative objects around perimeter or at the very top. No platforms, no people, no letters, no ball, no UI. A crayon paper toy garden with distant pastel mint bushes, tiny ochre paper flowers at upper edge and lower corners, pale cream-green meadow, delicate sunny paper texture. Subtle yellow and green with cream empty central region.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "factory",
+    "prompt": "16:10 landscape 2D game backdrop, handmade wax crayon marks, screenprinted cut construction paper and corrugated cardboard, playful modern children's art direction, friendly shapes, gently speckled ivory paper. Leave a huge quiet space in the central 86% and keep decorative objects around perimeter or at the very top. No platforms, no people, no letters, no ball, no UI. An imaginative toy machine workshop, paper gears and scalloped lavender canopy along edges, light peach and pale lilac cut paper, a little string of bunting near top. Keep center and lower two thirds light very pale dusty lavender-cream and empty.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "beam",
+    "prompt": "One isolated sprite on genuine transparent RGBA. Mid-century children's picture book, thick grainy wax crayon on layered construction paper and hand-cut corrugated cardboard. Both the drawing and the silhouette should read at tiny size. Warm sunlight, no glossy plastic, no clay, no gradients, no shadow outside object, no words or numbers. A long horizontal honey ochre corrugated cardboard plank, strict front face with flat upper and lower edges, straight clean rectangular silhouette 8:1, a few subtle crayon lines and visible cardboard edge, no holes or boards beside it.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "felt",
+    "prompt": "One isolated sprite on genuine transparent RGBA. Mid-century children's picture book, thick grainy wax crayon on layered construction paper and hand-cut corrugated cardboard. Both the drawing and the silhouette should read at tiny size. Warm sunlight, no glossy plastic, no clay, no gradients, no shadow outside object, no words or numbers. A long horizontal mint teal rough felt-covered cardboard strip, straight rectangular silhouette 8:1, colored wax crayon crosshatching to suggest friction, high visual contrast with ivory backdrop, one object.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "ball",
+    "prompt": "One isolated sprite on genuine transparent RGBA. Mid-century children's picture book, thick grainy wax crayon on layered construction paper and hand-cut corrugated cardboard. Both the drawing and the silhouette should read at tiny size. Warm sunlight, no glossy plastic, no clay, no gradients, no shadow outside object, no words or numbers. One circular red-orange crayon paper marble, perfectly circular silhouette, cheerful cream four-point paper star centered slightly off axis, a tiny soft highlight, clean print edge. Distinct red base. No effects.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "basket",
+    "prompt": "One isolated sprite on genuine transparent RGBA. Mid-century children's picture book, thick grainy wax crayon on layered construction paper and hand-cut corrugated cardboard. Both the drawing and the silhouette should read at tiny size. Warm sunlight, no glossy plastic, no clay, no gradients, no shadow outside object, no words or numbers. One low, wide, open cardboard toy basket seen from straight front with shallow visible inside rim, warm orange kraft and teal handles at far sides, gentle concave shape and flat base. No objects inside. Across about twice as wide as tall.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "bell",
+    "prompt": "One isolated sprite on genuine transparent RGBA. Mid-century children's picture book, thick grainy wax crayon on layered construction paper and hand-cut corrugated cardboard. Both the drawing and the silhouette should read at tiny size. Warm sunlight, no glossy plastic, no clay, no gradients, no shadow outside object, no words or numbers. One small ochre golden toy bell hanging from a red curled paper ribbon, chunky silhouette, visible clapper, bright cream wax highlights, full bell visible. No stand.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "bear",
+    "prompt": "One isolated sprite on genuine transparent RGBA. Mid-century children's picture book, thick grainy wax crayon on layered construction paper and hand-cut corrugated cardboard. Both the drawing and the silhouette should read at tiny size. Warm sunlight, no glossy plastic, no clay, no gradients, no shadow outside object, no words or numbers. A friendly little peach-brown paper cut-out teddy bear with a round head, tiny smile and turquoise kerchief, facing slightly towards left, sitting with paws out ready to catch a toy, body entirely visible. Cheerful graphic silhouette.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "pin",
+    "prompt": "One isolated sprite on genuine transparent RGBA. Mid-century children's picture book, thick grainy wax crayon on layered construction paper and hand-cut corrugated cardboard. Both the drawing and the silhouette should read at tiny size. Warm sunlight, no glossy plastic, no clay, no gradients, no shadow outside object, no words or numbers. One big circular brass thumbtack head from straight ahead with a dark teal central axle hole, marigold rim and small cream painted shine, one plain circular pivot hardware icon, perfect circle.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "cover.jpg",
+    "prompt": "A composed cover illustration for an original preschool drawing physics game, landscape 16:10. Distinct wax-crayon colored paper and handmade corrugated cardboard craft. Warm cream paper toy workshop. A friendly warm apricot cardboard teddy with teal scarf on right leans over an empty orange basket, excited as a red star-pattern marble rolls along a thick hand-drawn teal crayon bridge connecting two visibly separated ledges. One large yellow crayon on far left draws the bridge, with a few delightful paper confetti flecks. Keep strong simple silhouettes legible at 300px, balance the scene, fill the canvas. No text, no letters, no words, no branding, no glossy 3D.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "paper-pad",
+    "prompt": "Isolated transparent RGBA sprite of one blank cream-blue tracing paper rectangle, viewed completely flat straight on. For a preschool handmade cardboard science game. Rectangular playable center, very pale blue almost ivory, faint wax crayon grain and low contrast paper texture. Stronger desaturated blue softly uneven handcut edge, rounded cardboard corners, two tiny mint masking-tape tabs tucked into opposite extreme corners. Wide 2:1 silhouette. No text, no grid, no letters, no symbols, no drop shadow outside object, no other objects, no background.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "box-wall",
+    "prompt": "Isolated transparent flat game sprite, one tall upright solid corrugated cardboard toy warehouse block, straight-on side profile shaped as an upright rectangle, milk chocolate cardboard with rusty orange crayon tape bands and a handmade paper texture, with both vertical sides clear so its physical edge reads instantly. Height 2.6 times width. Full object in frame and genuine transparent RGBA. No text, symbols or other objects, no cast shadow. Warm children's paper craft collage with subtle crayon wax grain.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "spring-launcher",
+    "prompt": "A single small spring actuator cutout sprite for a preschool handmade cardboard and wax crayon game. Transparent RGBA. Wide horizontal, in exact side-on orthographic view: simple orange corrugated cardboard piston housing on the LEFT, exposed chunky turquoise accordion coil spring extending horizontally to the RIGHT, and one plain circular coral orange padded striking head at the RIGHT far end. A warm cream and teal wax crayon accent. Compact silhouettes, chunky highlights, physical paper toy, not industrial. Straight readable horizontal axis, entire actuator visible, no ball, no debris or motion rays, no shadow outside, no lettering, no scene. Width 2.3 times height, front-facing side view.",
+    "tool": "built-in image generation"
+  }
+]
