@@ -3,7 +3,7 @@
  else root.DrawRoadLevels=factory();
 }(typeof window==='undefined'?this:window,function(){
  'use strict';
- var groups=['搭桥','改方向','停得住','推得动','借材质','转起来','机关接力','两个目标','少画也能过','玩具工坊'];
+ var groups=['画出来的形状','看清路线','弹起来','用重量开门','快一点慢一点','绕轴转动','运过去','两颗球的分工','一笔多用','玩具工坊'];
  var levels=[];
  function rail(x1,y1,x2,y2,material,w){return {x1:x1,y1:y1,x2:x2,y2:y2,w:w||18,material:material||'wood'};}
  function floor(x1,x2,y,material){return rail(x1,y+9,x2,y+9,material);}
@@ -19,7 +19,7 @@
  function switchAt(id,x,y,w,h,role){return {id:id,x:x,y:y,w:w,h:h,role:role||'ink'};}
  function build(name,budget,detail){
   return Object.assign({name:name,theme:levels.length<10?'workbench':levels.length<25?'garden':'factory',
-   budget:budget,ink:740,beams:[],walls:[],balls:[],cups:[],pins:[],gates:[],bells:[],requires:[],switches:[],toys:[],demo:[]},detail);
+   budget:budget,ink:740,beams:[],walls:[],balls:[],cups:[],pins:[],gates:[],movers:[],bells:[],requires:[],switches:[],toys:[],demo:[]},detail);
  }
  function add(name,budget,detail){levels.push(build(name,budget,detail));}
  function mirror(data){
@@ -31,6 +31,11 @@
    });
   });
   (data.beams||[]).forEach(function(s){s.x1=1024-s.x1;s.x2=1024-s.x2;});
+  (data.movers||[]).forEach(function(s){
+   s.x=1024-s.x;s.toX=1024-s.toX;
+   if(s.tilt)s.tilt=-s.tilt;
+   if(s.rim)s.rim=-s.rim;
+  });
   data.demo=data.demo.map(function(stroke){return stroke.map(function(p){return [1024-p[0],p[1]];});});
   return data;
  }
@@ -251,28 +256,165 @@
   d.gates=[{x:624,y:304,w:20,h:116,by:'bridgeReady'}];
   return onPaper(d,[paper(162,291,377,83)]);
  }
+ function rebound(){
+  var d={
+   balls:[ball(218,98,0)],
+   beams:[Object.assign(rail(143,422,309,454,'bounce',24),{signal:'bounce'}),
+    floor(406,448,344),floor(595,631,373),rail(620,391,786,419)],
+   walls:[wall(953,465,16,120)],cups:[target(866,501,164)],
+   requires:['bounce'],demo:[[[386,321],[632,359]]]
+  };
+  return onPaper(d,[paper(346,272,331,127)]);
+ }
+ function sideBank(){
+  return onPaper({
+   balls:[ball(276,115,8.5)],
+   beams:[Object.assign(rail(572,363,572,132,'bounce',25),{signal:'return'}),
+    floor(284,325,406),floor(492,529,352),rail(109,453,295,417)],
+   walls:[wall(21,486,16,130)],cups:[target(87,521,142)],requires:['return'],
+   demo:[[[274,392],[525,342]]]
+  },[paper(246,319,325,106)]);
+ }
+ function reboundBell(){
+  var d=rebound();
+  d.beams[0].y2=442;
+  d.bells=[{id:'sky',x:328,y:185,r:23,ball:'red'}];
+  d.requires.push('sky');
+  return d;
+ }
+ function reboundWall(){
+  var d=rebound();
+  d.walls.push(box(370,424,30,278));
+  d.beams[1]=floor(414,447,344);
+  d.demo[0][0]=[409,324];
+  d.sheets=[paper(401,272,276,127)];
+  return d;
+ }
+ function feedRebound(){
+  var d=rebound();
+  d.balls[0].x=111;d.balls[0].y=91;
+  d.beams[1]=floor(335,365,390);
+  d.beams[2]=floor(591,631,427);
+  d.beams[3]=rail(620,449,786,474);
+  d.cups[0].y=545;d.walls[0].y=502;
+  d.beams.push(floor(78,119,247),floor(162,187,262));
+  d.sheets[0]=paper(301,348,376,87);
+  d.sheets.push(paper(45,192,170,103));
+  d.demo=[[[71,226],[186,252]],[[323,376],[632,417]]];
+  return d;
+ }
+ function reboundBridge(){
+  var d=reboundWall();
+  d.beams.pop();
+  d.beams.push(rail(618,388,667,407),floor(786,818,434),rail(803,451,853,462));
+  d.cups=[target(912,526,132)];
+  d.demo.push([[642,391],[821,419]]);
+  d.sheets[0]=paper(347,274,298,101);
+  d.sheets.push(paper(630,381,214,66));
+  return d;
+ }
+ function holdGate(){
+  var d=pressure({sx:260,sy:397});
+  d.switches[0].hold=true;d.gates[0].follow=true;
+  return onPaper(d,[paper(184,165,151,155)]);
+ }
+ function weightedSwitch(){
+  var d=pressure({sx:319,sy:407,narrow:true,high:true});
+  d.switches[0].w=76;
+  d.switches[0].load=3.8;
+  d.demo=[[[291,143],[346,143],[346,193],[291,193],[291,143]]];
+  return onPaper(d,[paper(261,106,118,133)]);
+ }
+ function bridgeToFelt(){
+  var d=bridge([[243,423]],{vx:8.2});
+  d.beams.pop();
+  d.beams.push(rail(423,351,640,376));
+  d.beams.push(Object.assign(floor(633,854,408,'felt'),{signal:'softLanding'}));
+  d.walls=[];
+  d.cups=[openTarget(750,408,168)];
+  d.requires=['softLanding'];
+  return onPaper(d,[paper(178,275,309,100)]);
+ }
+ function sweepLocks(twoEnds){
+  var d=lever({x:274,y:275,reach:181,left:twoEnds?80:68,highGate:true});
+  var first=twoEnds?[418,317]:[413,332],second=twoEnds?[223,231]:[401,386];
+  d.demo[0].forEach(function(point){point[1]+=twoEnds?10:7;});
+  d.switches=[
+   Object.assign(switchAt('outer',first[0],first[1],41,23),{anchored:true}),
+   Object.assign(switchAt('start',second[0],second[1],twoEnds?31:39,23),{anchored:true})
+  ];
+  d.gates[0].by=['outer','start'];
+  if(twoEnds)return onPaper(mirror(d),[paper(535,232,327,83)]);
+  return onPaper(d,[paper(164,224,325,91)]);
+ }
+ function bothPads(){
+  var d=pressure({sx:232,sy:393});
+  d.switches=[
+   Object.assign(switchAt('leftPad',192,393,29,17),{hold:true}),
+   Object.assign(switchAt('rightPad',270,393,29,17),{hold:true})
+  ];
+  d.gates[0].by=['leftPad','rightPad'];d.gates[0].follow=true;
+  d.demo=[[[171,211],[290,211],[290,261],[171,261],[171,211]]];
+  return onPaper(d,[paper(147,175,160,118)]);
+ }
+ function carrierLevel(mode){
+  var isFerry=mode==='ferry',usesLever=mode==='lever';
+  var d=usesLever?lever({x:249,y:232,reach:143,left:71}):
+   pressure({sx:isFerry?255:237,sy:isFerry?345:413,rolling:isFerry});
+  d.beams=d.beams.slice(0,usesLever?0:1);
+  d.gates=[];
+  var boat={x:isFerry?468:531,y:isFerry?355:431,w:116,h:17,rim:-1,
+   toX:isFerry?721:531,toY:isFerry?355:241,tilt:.24,by:'start',signal:'arrived',duration:1690};
+  d.movers=[boat];
+  d.requires=['arrived'];
+  d.balls=[ball(isFerry?484:544,isFerry?160:234,0)];
+  d.beams.push(rail(isFerry?775:576,isFerry?377:270,isFerry?849:805,421));
+  d.cups=[target(897,510,172)];
+  d.walls=[wall(983,456,16,179)];
+  if(usesLever){
+   d.beams.pop();
+   d.beams.push(floor(589,612,286),floor(756,788,327),rail(786,355,838,393));
+   d.demo.push([[586,274],[797,317]]);
+  }
+  return onPaper(d,usesLever?[paper(147,200,270,76),paper(552,253,270,134)]:
+   isFerry?[paper(64,150,131,121)]:[paper(170,171,138,141)]);
+ }
+ function ringThenBasket(){
+  var d=slope({start:201,drop:74});
+  d.bells=[{id:'ring',x:669,y:365,r:26,ball:'red'}];d.requires=['ring'];
+  return onPaper(d,[paper(169,231,335,148)]);
+ }
+ function ferryRelay(){
+  var d=carrierLevel('ferry'),approach=split({});
+  d.balls[0].id='blue';d.balls[0].cup='blueHome';d.cups[0].id='blueHome';
+  d.balls.unshift(approach.balls[0]);d.cups.unshift(approach.cups[0]);
+  d.beams=approach.beams.slice(0,2).concat([floor(768,797,384),floor(840,866,411)]);
+  d.switches=[Object.assign(switchAt('start',353,330,38,24,'ball'),{actor:'red'})];
+  d.demo=[approach.demo[0],[[777,374],[852,401]]];
+  return onPaper(d,[paper(85,240,325,157),paper(750,327,157,108)]);
+ }
 
  add('跨过小沟',3,bridge([[238,370]],{vx:7.85}));
- add('搭到低一格',3,bridge([[244,405]],{y:360,vx:8.85}));
- add('宽宽的大沟',2,bridge([[223,458]],{vx:9.6}));
+ add('接住高处的球',3,slope({}));
+ add('桌沿挡一挡',3,onPaper(brake({}),[paper(700,279,155,144)]));
  add('中间有桥墩',3,onPaper(bridge([[230,366],[407,548]],{vx:7.6}),[paper(172,289,245,57),paper(352,347,257,69)]));
- add('两座小桥',3,onPaper(bridge([[219,379],[481,657]],{y:367,vx:9.85}),[paper(163,313,259,62),paper(426,372,295,69)]));
+ add('弯一弯，接住它',3,onPaper(cradle(),[paper(523,268,249,152)]));
 
- add('斜坡滑下来',3,slope({}));
  add('落球向左转',3,slope({start:209,drop:74,flip:true}));
+ add('碰铃再进篮',2,ringThenBasket());
  add('钻过木箱下面',3,underBox());
  add('走两段折线路',3,onPaper(zigzag(),[paper(125,232,347,125),paper(220,376,434,137)]));
- add('向左送进篮子',2,slope({start:208,drop:82,flip:true}));
+ add('接过第一段，再搭第二段',3,onPaper(bridge([[219,379],[481,657]],{y:367,vx:9.85}),[paper(163,313,259,62),paper(426,372,295,69)]));
 
- add('桌沿挡一挡',3,onPaper(brake({}),[paper(700,279,155,144)]));
- add('接在凹槽里',3,onPaper(cradle(),[paper(523,268,249,152)]));
- add('楔子撑住',3,onPaper(brake({center:716,brace:true,vx:12}),[paper(717,292,148,131)]));
- add('稳住挡板',3,onPaper(brake({center:688,brace:true,flip:true,vx:12.5}),[paper(191,286,148,135)]));
- add('刚好停下来',2,onPaper(brake({center:711,vx:14}),[paper(733,294,109,132)]));
+ add('弹起来，接一下',3,rebound());
+ add('碰墙弹回来',3,sideBank());
+ add('弹到空中的铃',3,reboundBell());
+ add('跳过纸箱向左走',2,onPaper(mirror(reboundWall()),[paper(347,272,276,127)]));
+ add('先送上弹垫，再接住',3,feedRebound());
 
  add('积木按开关',3,onPaper(pressure({}),[paper(195,170,148,146)]));
- add('顺坡推开门',3,onPaper(pressure({rolling:true,sx:306}),[paper(109,195,132,142)]));
- add('画个滚轮',2,onPaper(pressure({rolling:true,sx:324,narrow:true}),[paper(145,205,100,119)]));
+ add('稳稳压住开关',3,holdGate());
+ add('把配重放上托盘',2,weightedSwitch());
  add('会荡回来的门',2,onPaper(hingedDoor(),[paper(75,162,119,125)]));
  add('两把锁都打开',2,onPaper(auxiliary(pressure({sx:246,sy:363,narrow:true})),[paper(179,160,134,146),paper(691,66,152,108)]));
 
@@ -280,19 +422,19 @@
  add('毛毡慢一点',3,onPaper(brake({center:695,felt:true,vx:16.5}),[paper(700,282,144,145)]));
  add('木坡传配重',2,onPaper(pressure({rolling:true,sx:336,sy:363}),[paper(157,168,116,129)]));
  add('防滑垫上的脚',2,onPaper(slope({start:183,y:251,span:266,drop:83,felt:true}),[paper(149,206,338,157)]));
- add('快慢两段路',3,onPaper(bridge([[220,403],[480,645]],{y:358,felt:true,vx:6.5}),[paper(154,305,302,56),paper(426,362,284,78)]));
+ add('过桥后慢慢停下',3,bridgeToFelt());
 
  add('轴上跷跷板',3,onPaper(lever({x:277,reach:171}),[paper(166,249,318,76)]));
  add('压低这一头',3,onPaper(lever({x:307,y:252,left:112,reach:145,counter:true}),[paper(170,242,312,57),paper(178,108,108,141)]));
- add('长长的杠杆',2,onPaper(lever({x:278,left:61,reach:213,highGate:true}),[paper(188,246,321,78)]));
- add('向左的翻板',2,onPaper(lever({x:304,left:78,reach:178,flip:true}),[paper(515,244,308,83)]));
+ add('杠杆扫过两把锁',2,sweepLocks());
+ add('翻板开路，另搭一座桥',3,onPaper(relay({lever:true}),[paper(315,126,304,70),paper(330,316,278,90)]));
  add('重物和转轴',2,onPaper(lever({x:298,y:252,left:124,reach:145,counter:true,flip:true,highGate:true}),[paper(556,242,321,56),paper(750,105,113,144)]));
 
  add('撞倒第一块',3,onPaper(domino({}),[paper(144,166,137,127)]));
  add('积木传一传',3,onPaper(domino({x:364,double:true}),[paper(117,194,119,116)]));
- add('翻板和配重两把锁',2,onPaper(auxiliary(lever({x:277,reach:171,highGate:true})),[paper(166,249,318,76),paper(702,65,130,112)]));
- add('一处开门一处走',3,onPaper(relay({}),[paper(698,66,133,110),paper(330,316,278,90)]));
- add('翻板加过桥',3,onPaper(relay({lever:true}),[paper(315,126,304,70),paper(330,316,278,90)]));
+ add('把小球抬上去',3,carrierLevel('lift'));
+ add('横着走的小车',2,carrierLevel('ferry'));
+ add('升降到半空才有路',3,carrierLevel('lever'));
 
  add('两个小篮子',4,onPaper(split({}),[paper(85,240,325,157),paper(622,240,322,157)]));
  add('一笔分两路',3,roof({}));
@@ -302,42 +444,54 @@
 
  add('一笔搭桥兼开锁',1,bridgeLatch());
  add('两笔打开仓库',2,warehouse());
- add('配重落进窄槽',1,onPaper(pressure({sx:303,sy:412,narrow:true,high:true}),[paper(256,102,94,104)]));
- add('一笔翻开高门',1,onPaper(lever({x:283,reach:199,left:64,highGate:true}),[paper(184,251,333,72)]));
+ add('一笔压住两个开关',1,bothPads());
+ add('一根杆，两头各开一把锁',1,sweepLocks(true));
  add('一笔接两颗',1,roof({narrow:true}));
 
- add('下坡越过断口',2,onPaper(bridge([[236,375],[459,668]],{vx:9.35,y:364}),[paper(171,319,244,57),paper(418,367,311,73)]));
+ add('跳过纸箱再过桥',2,reboundBridge());
  add('压下翻板再过沟',3,onPaper(relay({lever:true,two:true}),[paper(311,122,305,70),paper(192,313,241,60),paper(472,363,246,80)]));
- add('从另一边开路',3,onPaper(auxiliary(paired({flip:true,ballGate:true})),[paper(88,238,331,163),paper(606,236,329,167),paper(705,66,122,113)]));
+ add('红球给蓝球叫小车',2,ferryRelay());
  var bellRoute=paired({bell:true});
  bellRoute.gates[0].by=['start','ring'];
  add('分到铃铛和篮子',3,onPaper(bellRoute,[paper(86,239,324,158),paper(621,239,328,158),paper(454,204,109,110)]));
  add('小熊的玩具工坊',3,onPaper(paired({final:true}),[paper(83,245,323,164),paper(624,239,326,169),paper(453,208,112,111)]));
 
  var tips=[
-  '在缺口上搭一段路，让红球滚进小熊的篮子。',
-  '用有坡度的画线接住落球，把它送往篮子。',
-  '让球停在小熊身边的圈里。挡板要站得稳。',
+  '试试搭路、接球，或者让挡板把球留下来。',
+  '看看球从哪边来，再想想接住后要往哪边送。',
+  '先放一次球，看看球碰到弹垫后往哪里飞。',
   '画出会落下或滚动的零件。零件碰到开关，就能打开小球前面的门。',
   '看一看光滑的木板和粗糙的毛毡。让球有足够冲劲，再在目标前停住。',
   '让一笔穿过金色转轴。它会转动，压到开关。',
-  '先让机关碰到开关，再想办法把球送到目标。',
+  '看看是哪件东西带动了下一件。小球也可以让托盘运过去。',
   '两颗球需要自己的路线。把小球送到和它同色的篮子。',
   '用下方纸条表示的笔数画好路线，再放球。',
   '看清每个目标，用画的零件安排机关工作的先后。'
  ];
  var specific={
   4:'每张蓝纸可以单独画。在桥墩两边分别搭路。',
-  5:'在两张不同高度的蓝纸上分别搭桥。',
+  3:'让球停在小熊身边的圈里。挡板要站得稳。',
+  5:'画一个两端翘起的凹槽，接住斜着飞过来的球。',
+  7:'小球要先碰铃，再进篮。',
   8:'木箱把上方堵住了。从木箱下面把球接到右边。',
   9:'接住球，再让它转向左边的篮子。',
+  13:'把接球的路留在铃铛下面，让小球有空间弹起来。',
+  15:'上面的纸用来送球去弹垫，下面的纸用来接球。',
+  17:'物体要留在开关上。它一滑走，门就会落下。',
+  18:'在蓝纸上画一块够重的积木，也可以叠两块压下托盘。',
   20:'球会先滚到门前。两张纸上的重物分别按下开关，两把锁都打开才抬门。',
-  33:'用转轴压住一个开关，再让另一处的重物按下第二个。',
+  28:'让转轴杆的一端先后碰到两把锁。',
+  33:'压住开关，托盘会把小球抬到高处的路上。',
+  34:'让零件滚过去碰开关，小车就会把小球送到对面。',
+  35:'先让转轴启动托盘，再在托盘升到的位置接球。',
   39:'两颗球同时落下。让红球经过开关，抬起蓝球前面的门。',
   40:'两颗球同时落下。红球撞铃后会抬起蓝球前面的门。',
   41:'只用一笔跨过宽沟，桥还要碰到另一端的小开关。',
   42:'在上方按开关，在下方搭桥，让球从纸箱下面过去。',
-  48:'让红球走到开关，再在另一块台面打开第二把锁。',
+  43:'画一个能同时留在两个开关上的零件。',
+  44:'一根杆的两端会往相反方向转。让两头各碰一把锁。',
+  46:'在第一张纸上接住越过纸箱的球，再在第二张纸上补路。',
+  48:'红球经过开关，小车就会运走蓝球。在对岸给蓝球留一段路。',
   49:'重物按开关、红球碰铃，两把锁都打开后蓝球才能过门。',
   50:'三颗球同时出发。红球和蓝球进篮后，中间的挡板会抽开，黄球会落下撞铃。'
  };

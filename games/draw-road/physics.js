@@ -9,6 +9,7 @@
  var materials={
   wood:{friction:.032,frictionStatic:.47},
   felt:{friction:.68,frictionStatic:1.1},
+  bounce:{friction:.018,frictionStatic:0,restitution:.88},
   block:{friction:.30,frictionStatic:.8}
  };
 
@@ -170,8 +171,8 @@
  function create(level,strokes,onEvent){
   var engine=Engine.create({positionIterations:10,velocityIterations:8,constraintIterations:5,enableSleeping:false});
   engine.gravity.y=.98;
-  var world=engine.world,things=[],balls=[],gates=[],cups=[],switches=[],bells=[],inks=[],pressed={},events=[];
-  var elapsed=0,verdict='running',touches=[],settled={},removed={};
+  var world=engine.world,things=[],balls=[],gates=[],movers=[],cups=[],switches=[],loadPads=[],bells=[],inks=[],pressed={},events=[];
+  var elapsed=0,verdict='running',touches=[],settled={},removed={},held={},holdIds={};
   function add(body,role,spec){
    body.plugin.role=role;body.plugin.spec=spec;
    Composite.add(world,body);things.push({body:body,role:role,spec:spec});return body;
@@ -186,7 +187,10 @@
   }
   (level.beams||[]).forEach(function(s){
    var material=materials[s.material]||materials.wood;
-   add(plank({x:s.x1,y:s.y1},{x:s.x2,y:s.y2},s.w,Object.assign({isStatic:true,collisionFilter:filter(layers.fixture)},material)),'beam',s);
+   var body=plank({x:s.x1,y:s.y1},{x:s.x2,y:s.y2},s.w,Object.assign({isStatic:true,collisionFilter:filter(layers.fixture)},material));
+   // Matter sets static bodies' restitution to zero during construction.
+   if(s.material==='bounce')Object.assign(body,material);
+   add(body,'beam',s);
   });
   (level.walls||[]).forEach(function(s){staticRect(s.x,s.y,s.w,s.h,'wall',s,{friction:.42});});
   (level.cups||[]).forEach(function(s){
@@ -199,8 +203,11 @@
    staticRect(s.x+s.w/2-5,s.y-s.h/2,10,s.h,'cupPart',s,base);
   });
   (level.switches||[]).forEach(function(s){
-   var b=staticRect(s.x,s.y,s.w,s.h,'switch',s,{isSensor:true,collisionFilter:filter(layers.fixture,layers.ball|layers.ink|layers.mechanism)});
-   switches.push({body:b,spec:s});
+   var b=staticRect(s.x,s.y,s.w,s.h,'switch',s,{isSensor:!s.load,collisionFilter:filter(layers.fixture,layers.ball|layers.ink|layers.mechanism)});
+   var entry={body:b,spec:s};
+   switches.push(entry);
+   if(s.load){entry.loadedFor=0;loadPads.push(entry);}
+   if(s.hold)holdIds[s.id]=true;
   });
   (level.bells||[]).forEach(function(s){
    var b=add(Bodies.circle(s.x,s.y,s.r||23,{isStatic:true,isSensor:true,collisionFilter:filter(layers.fixture,layers.ball|layers.mechanism)}),'bell',s);
@@ -209,6 +216,12 @@
   (level.gates||[]).forEach(function(s){
    var b=staticRect(s.x,s.y,s.w,s.h,'gate',s,{friction:.2,collisionFilter:filter(layers.mechanism)});
    gates.push({body:b,spec:s,progress:0});
+  });
+  (level.movers||[]).forEach(function(s){
+   var options={friction:.58,frictionStatic:.8,collisionFilter:filter(layers.mechanism)};
+   var deck=staticRect(s.x,s.y,s.w,s.h,'carrier',s,options);
+   var rim=s.rim?staticRect(s.x+s.rim*(s.w/2-6),s.y-s.h/2-11,12,22,'carrier-rim',s,options):null;
+   movers.push({body:deck,rim:rim,spec:s,progress:0,started:0,finished:false});
   });
   (level.toys||[]).forEach(function(s){
    var b=add(Bodies.rectangle(s.x,s.y,s.w,s.h,{density:s.density||.0022,friction:.42,restitution:.02,
@@ -239,20 +252,44 @@
   }
   function openSignal(requirement){
    if(Array.isArray(requirement))return requirement.every(openSignal);
-   return !requirement||!!pressed[requirement];
+   if(!requirement)return true;
+   return holdIds[requirement]?!!held[requirement]:!!pressed[requirement];
+  }
+  function weighPad(pad){
+   var s=pad.spec;
+   if(pressed[s.id])return;
+   // Count each piece the pad supports, including pieces resting on other ink.
+   var stack=[pad.body],seen={},load=0,pairs=engine.pairs.list;
+   seen[pad.body.id]=true;
+   for(var i=0;i<stack.length;i++)for(var j=0;j<pairs.length;j++){
+    var pair=pairs[j],contact=pair.collision,ny=contact.normal.y;
+    if(!pair.isActive||pair.isSensor||Math.abs(ny)<.5)continue;
+    var lower=ny>0?contact.parentA:contact.parentB;
+    var upper=ny>0?contact.parentB:contact.parentA;
+    if(lower!==stack[i]||seen[upper.id]||upper.plugin.role!=='ink')continue;
+    seen[upper.id]=true;
+    stack.push(upper);
+    load+=upper.mass;
+   }
+   pad.loadedFor=load>=s.load?pad.loadedFor+STEP:0;
+   if(pad.loadedFor>=75)trigger(pad.body,s.id);
   }
   function collision(pair){
    var x=pair.bodyA.parent,y=pair.bodyB.parent;
    [x,y].forEach(function(a,i){
     var other=i?x:y, s=a.plugin.spec;
-    if(a.plugin.role==='switch'&&!other.isStatic){
+   if(a.plugin.role==='switch'&&!s.load&&!other.isStatic){
      var attached=other.plugin.ink&&other.plugin.ink.pin;
      if((!s.role||other.plugin.role===s.role)&&(!s.mass||other.mass>=s.mass)&&
-       (!s.anchored||attached)&&(!s.actor||s.actor===other.plugin.spec.id))trigger(a,s.id);
+       (!s.anchored||attached)&&(!s.actor||s.actor===other.plugin.spec.id)){
+      if(s.hold)held[s.id]=true;
+      trigger(a,s.id);
+     }
     }else if(a.plugin.role==='bell'&&other.plugin.role==='ball'){
      if(!s.ball||s.ball===other.plugin.spec.id)trigger(a,s.id);
     }else if(a.plugin.role==='beam'&&s.material==='felt'&&other.plugin.role==='ball'){
      touches.push(other);
+     if(s.signal)trigger(a,s.signal);
     }
    });
   }
@@ -263,26 +300,64 @@
     if(a.isSensor||b.isSensor||a.isStatic&&b.isStatic)return;
     var rx=a.velocity.x-b.velocity.x,ry=a.velocity.y-b.velocity.y;
     var speed=Math.abs(rx*pair.collision.normal.x+ry*pair.collision.normal.y);
+    if(speed>3)[a,b].forEach(function(surface,i){
+     var other=i?a:b,s=surface.plugin.spec;
+     if(surface.plugin.role==='beam'&&s.material==='bounce'&&other.plugin.role==='ball'){
+      if(s.signal)trigger(surface,s.signal);
+      emit('bounce',other,Math.min(1,speed/19));
+     }
+    });
     if(speed>2.3)emit('knock',a.isStatic?b:a,Math.min(1,speed/12));
    });
   });
   M.Events.on(engine,'collisionActive',function(e){e.pairs.forEach(collision);});
 
   function out(body){return body.position.y>H+115||body.position.x<-140||body.position.x>W+140;}
+  function animateCarrier(m){
+   var s=m.spec;
+   if(m.finished)return;
+   if(!m.started){
+    if(!openSignal(s.by))return;
+    m.started=elapsed;emit('carrier-start',m.body,.7);
+   }
+   m.progress=Math.min(1,(elapsed-m.started)/(s.duration||1200));
+   var t=m.progress,ease=t*t*(3-2*t),tilt=Math.max(0,(t-.72)/.28)*(s.tilt||0);
+   var x=s.x+(s.toX-s.x)*ease,y=s.y+(s.toY-s.y)*ease;
+   Body.setPosition(m.body,{x:x,y:y},true);Body.setAngle(m.body,tilt,true);
+   if(m.rim){
+    var localX=s.rim*(s.w/2-6),localY=-s.h/2-11,c=Math.cos(tilt),sin=Math.sin(tilt);
+    Body.setPosition(m.rim,{x:x+localX*c-localY*sin,y:y+localX*sin+localY*c},true);
+    Body.setAngle(m.rim,tilt,true);
+   }
+   if(t===1){
+    // A stopped platform must not keep the velocity of its last physics step.
+    Body.setVelocity(m.body,{x:0,y:0});Body.setAngularVelocity(m.body,0);
+    if(m.rim){Body.setVelocity(m.rim,{x:0,y:0});Body.setAngularVelocity(m.rim,0);}
+    m.finished=true;
+    emit('carrier-arrive',m.body,.6);
+    if(s.signal)pressed[s.signal]=elapsed;
+   }
+  }
   function step(){
    if(verdict!=='running')return verdict;
    elapsed+=STEP;
    gates.forEach(function(g){
-    if(g.spec.afterCups&&!balls.every(function(entry){return !entry.spec.cup||settled[entry.spec.id]>240;}))return;
-    if(!openSignal(g.spec.by)||g.progress>=1)return;
-    if(g.progress===0)emit('gate-open',g.body,.7);
-    g.progress=Math.min(1,g.progress+STEP/365);
+    var reversible=g.spec.follow;
+    if(!reversible&&g.progress>=1)return;
+    var cupsReady=!g.spec.afterCups||balls.every(function(entry){return !entry.spec.cup||settled[entry.spec.id]>240;});
+    var opening=cupsReady&&openSignal(g.spec.by);
+    if(!opening&&(!reversible||g.progress===0))return;
+    if(opening&&g.progress===0)emit('gate-open',g.body,.7);
+    g.progress=Math.max(0,Math.min(1,g.progress+(opening?1:-1)*STEP/365));
     var slide=g.spec.slide||{x:0,y:-(g.spec.h+22)};
     Body.setPosition(g.body,{x:g.spec.x+slide.x*g.progress,y:g.spec.y+slide.y*g.progress});
-    if(g.progress===1)Composite.remove(world,g.body);
+    if(!reversible&&g.progress===1)Composite.remove(world,g.body);
    });
+   movers.forEach(animateCarrier);
    touches=[];
+   held={};
    Engine.update(engine,STEP);
+   loadPads.forEach(weighPad);
    touches.forEach(function(b){
     if(!b.isStatic){Body.setVelocity(b,{x:b.velocity.x*.978,y:b.velocity.y});Body.setAngularVelocity(b,b.angularVelocity*.975);}
    });
@@ -303,8 +378,8 @@
    else if(balls.some(function(o){return o.spec.cup&&out(o.body);})||elapsed>=10800)verdict='retry';
    return verdict;
   }
-  return {step:step,things:things,balls:balls,cups:cups,switches:switches,bells:bells,gates:gates,inks:inks,
-   pressed:pressed,events:events,get elapsed(){return elapsed;},get verdict(){return verdict;}};
+  return {step:step,things:things,balls:balls,cups:cups,switches:switches,bells:bells,gates:gates,movers:movers,inks:inks,
+   pressed:pressed,events:events,isHeld:function(id){return !!held[id];},get elapsed(){return elapsed;},get verdict(){return verdict;}};
  }
  return {W:W,H:H,STEP:STEP,WIDTH:WIDTH,distance:distance,shape:shape,draft:draft,containingSheet:containingSheet,create:create};
 }));

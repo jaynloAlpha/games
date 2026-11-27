@@ -68,5 +68,15 @@
     "asset": "spring-launcher",
     "prompt": "A single small spring actuator cutout sprite for a preschool handmade cardboard and wax crayon game. Transparent RGBA. Wide horizontal, in exact side-on orthographic view: simple orange corrugated cardboard piston housing on the LEFT, exposed chunky turquoise accordion coil spring extending horizontally to the RIGHT, and one plain circular coral orange padded striking head at the RIGHT far end. A warm cream and teal wax crayon accent. Compact silhouettes, chunky highlights, physical paper toy, not industrial. Straight readable horizontal axis, entire actuator visible, no ball, no debris or motion rays, no shadow outside, no lettering, no scene. Width 2.3 times height, front-facing side view.",
     "tool": "built-in image generation"
+  },
+  {
+    "asset": "bounce-pad",
+    "prompt": "Single isolated transparent RGBA sprite for a preschool paper craft physics game, exactly side-on 2D orthographical. A long low red and coral drum trampoline with straight horizontal stretched cherry pink bouncing surface and a pale yellow stripe, a paper spring zigzag visible below each end supported by a flat teal base, wide 4.5:1 shape. Warm wax crayon texture and hand-cut corrugated edges. Main top edge completely straight and clear so a marble can appear to physically bounce on it. Object fills frame horizontally with small margins. No lettering, background, shadows outside, other objects, ball, or special effects.",
+    "tool": "built-in image generation"
+  },
+  {
+    "asset": "lift-platform",
+    "prompt": "Single isolated transparent RGBA side-view game sprite: one wide mint-green toy paper lift platform for a handcrafted cardboard science workshop. Low and wide horizontal tray, front side completely flat with one large yellow chevron motif pointing up and corrugated cardboard underneath. Top edge straight horizontal so a rolling marble can sit on it. Warm crayon texture, hand-cut construction paper, cute preschool clear chunky silhouette, about 6:1 aspect. No rails or balls, no people, no typography, no background, no cast shadows outside.",
+    "tool": "built-in image generation"
   }
 ]
